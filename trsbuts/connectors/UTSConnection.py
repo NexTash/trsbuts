@@ -3,6 +3,8 @@ import json
 
 
 class UTSConnection:
+    def __init__(self):
+        self._s = requests.Session()
 
     def connect(self, servicepath: str, servicedata: str):
         company = frappe.defaults.get_user_default("Company")
@@ -20,10 +22,9 @@ class UTSConnection:
             'Content-Type': frappe.db.get_single_value("TR UTS Integration Settings", "contenttype")
         }
 
-        s = requests.Session()
-        s.headers.update(headers)
+        self._s.headers.update(headers)
         # Web servislerin tamamında HTTP request method olarak “POST” metodu kullanılmaktadır.
-        response = s.post(url, servicedata)
+        response = self._s.post(url, servicedata)
 
         # For successful API call, response code will be 200 (OK)
         if response.ok:
