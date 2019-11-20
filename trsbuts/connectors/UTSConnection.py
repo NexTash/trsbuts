@@ -4,7 +4,7 @@ import json
 
 class UTSConnection:
 
-    def connect(servicepath: str, servicedata: str):
+    def connect(self, servicepath: str, servicedata: str):
         company = frappe.defaults.get_user_default("Company")
         if frappe.db.get_value("TR UTS Company Settings", company, "usetest") == 0:
             url = frappe.db.get_single_value("TR UTS Integration Settings", "server")
