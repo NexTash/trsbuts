@@ -8,7 +8,7 @@ frappe.ui.form.on('TR UTS Company Settings', {
 	check_integration: function(frm){
 	    if(frm.doc.systemtoken!=""){
 	        frappe.call({
-	            method: "trsbuts.api.test_integration",
+	            method: "trsbuts.trsbuts.api.test_integration",
 	            args:{
 	                test: "real",
                     testtoken: frm.doc.systemtoken
@@ -22,7 +22,7 @@ frappe.ui.form.on('TR UTS Company Settings', {
 		check_testsystemintegration: function(frm){
 	    if(frm.doc.testsystemtoken!=""){
 	        frappe.call({
-	            method: "trsbuts.api.test_integration",
+	            method: "trsbuts.trsbuts.api.test_integration",
 	            args:{
 	                test: "test",
                     testtoken: frm.doc.testsystemtoken
