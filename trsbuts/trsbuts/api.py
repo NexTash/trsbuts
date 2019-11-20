@@ -5,6 +5,7 @@ import json
 
 @frappe.whitelist()
 def test_integration(test, testtoken):
+    company = frappe.defaults.get_user_default("Company")
     servicepath = "/UTS/rest/kurum/firmaSorgula"
     # Replace with the correct URL
     url = ""
@@ -13,7 +14,6 @@ def test_integration(test, testtoken):
     if test == "test":
         url = frappe.db.get_single_value("TR UTS Integration Settings", "testserver")
     # her web servis çağrısının başlık (header) kısmına utsToken etiketiyle sistem token’ının değerini eklemelidir
-    company = frappe.defaults.get_user_default("Company")
     __headers = {
         'utsToken': testtoken,
         'Content-Type': frappe.db.get_single_value("TR UTS Integration Settings", "contenttype")
