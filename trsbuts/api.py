@@ -38,5 +38,6 @@ def test_integration(test, testtoken):
 
 @frappe.whitelist()
 def get_utsid_by_taxid(vrg):
-    d: dict = QueryCompanyService.firmasorgula(vrg=vrg)
+    q: QueryCompanyService = QueryCompanyService()
+    d: dict = q.firmasorgula(vrg=vrg)
     return d.get('KRN')
