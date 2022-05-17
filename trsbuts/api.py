@@ -1,6 +1,6 @@
 import requests
 
-import connectors.QueryCompanyService as QueryCompanyService
+import connectors.QueryCompanyService
 import frappe
 
 
@@ -38,6 +38,6 @@ def test_integration(test, testtoken):
 
 @frappe.whitelist()
 def get_utsid_by_taxid(vrg):
-    q: QueryCompanyService = QueryCompanyService()
+    q: connectors.QueryCompanyService = connectors.QueryCompanyService()
     d: dict = q.firmasorgula(vrg=vrg)
     return d.get('KRN')
