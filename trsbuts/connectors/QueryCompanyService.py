@@ -1,4 +1,4 @@
-import UTSConnection as UTSConnection
+import UTSConnection
 
 
 class QueryCompanyService:
