@@ -1,6 +1,3 @@
-import UTSConnection
-
-
 class QueryCompanyService:
     def __index__(self):
         self._utsconnection = UTSConnection()
