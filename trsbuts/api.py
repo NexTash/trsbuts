@@ -1,6 +1,7 @@
 import requests
 
 import frappe
+from connectors import QueryCompanyService
 
 
 @frappe.whitelist()
