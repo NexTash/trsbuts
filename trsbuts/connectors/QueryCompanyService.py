@@ -1,4 +1,4 @@
-import trsbuts.connectors.UTSConnection as UTSConnection
+import UTSConnection as UTSConnection
 
 
 class QueryCompanyService:
