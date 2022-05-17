@@ -1,6 +1,5 @@
 import requests
 
-import trsbuts.connectors.QueryCompanyService
 import frappe
 
 
@@ -38,6 +37,5 @@ def test_integration(test, testtoken):
 
 @frappe.whitelist()
 def get_utsid_by_taxid(vrg):
-    q: QueryCompanyService = QueryCompanyService()
-    d: dict = q.firmasorgula(vrg=vrg)
+    d: dict = QueryCompanyService.firmasorgula(vrg=vrg)
     return d.get('KRN')
