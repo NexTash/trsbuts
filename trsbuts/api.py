@@ -1,6 +1,7 @@
 import requests
 
 import frappe
+import trsbuts
 
 
 @frappe.whitelist()
@@ -33,3 +34,9 @@ def test_integration(test, testtoken):
     response = s.post(_requesturl, servicerequestdatafields)
 
     return response.text
+
+
+@frappe.whitelist()
+def get_utsid_by_taxid(vrg):
+    d: dict = trsbuts.connectors.QueryCompanyService.firmasorgula(vrg=vrg)
+    return d.get('KRN')
