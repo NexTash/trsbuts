@@ -1,6 +1,6 @@
 import requests
-import trsbuts.connectors.QueryCompanyService as QueryCompanyService
 
+import apps.trsbuts.trsbuts.connectors.QueryCompanyService as QueryCompanyService
 import frappe
 
 
