@@ -14,11 +14,10 @@ def test_integration(test, testtoken):
         url = frappe.db.get_single_value("TR UTS Integration Settings", "server")
     if test == "test":
         url = frappe.db.get_single_value("TR UTS Integration Settings", "testserver")
+
     # her web servis çağrısının başlık (header) kısmına utsToken etiketiyle sistem token’ının değerini eklemelidir
-    __headers = {
-        'utsToken': testtoken,
-        'Content-Type': frappe.db.get_single_value("TR UTS Integration Settings", "contenttype")
-    }
+    __headers = dict(utsToken=testtoken)
+    __headers['Content-Type'] = frappe.db.get_single_value("TR UTS Integration Settings", "contenttype")
 
     # servicedata = "{"
     # servicedata = servicedata + "\"VRG\":\"" + frappe.db.get_value("Company", company, "tax_id") + "\""
