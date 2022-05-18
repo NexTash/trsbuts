@@ -20,9 +20,11 @@ def test_integration(test, testtoken):
         'Content-Type': frappe.db.get_single_value("TR UTS Integration Settings", "contenttype")
     }
 
-    servicedata = "{"
-    servicedata = servicedata + "\"VRG\":\"" + frappe.db.get_value("Company", company, "tax_id") + "\""
-    servicedata = servicedata + "}"
+    # servicedata = "{"
+    # servicedata = servicedata + "\"VRG\":\"" + frappe.db.get_value("Company", company, "tax_id") + "\""
+    # servicedata = servicedata + "}"
+
+    servicedata = dict(VRG=frappe.db.get_value("Company", company, "tax_id"))
 
     servicerequestdatafields = servicedata
 

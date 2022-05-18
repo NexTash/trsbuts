@@ -12,14 +12,14 @@ class UTSConnection:
     def connect(self, servicepath: str, servicedata: str):
         company = frappe.defaults.get_user_default("Company")
         server_url: str = frappe.db.get_single_value("TR UTS Integration Settings", "server")
-        utstoken = frappe.db.get_value("TR UTS Company Settings", company, "systemtoken")
+        utstoken: str = frappe.db.get_value("TR UTS Company Settings", company, "systemtoken")
         if frappe.db.get_value("TR UTS Company Settings", company, "usetest") == 0:
             server_url = frappe.db.get_single_value("TR UTS Integration Settings", "testserver")
             utstoken = frappe.db.get_value("TR UTS Company Settings", company, "testsystemtoken")
 
         service_url = server_url + servicepath
         # her web servis çağrısının başlık (header) kısmına utsToken etiketiyle sistem token’ının değerini eklemelidir
-        _headers = {
+        _headers: dict = {
             'utsToken': utstoken,
             'Content-Type': frappe.db.get_single_value("TR UTS Integration Settings", "contenttype")
         }
