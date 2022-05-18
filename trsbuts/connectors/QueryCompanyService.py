@@ -2,9 +2,7 @@ from trsbuts.connectors.UTSConnection import UTSConnection
 
 
 class QueryCompanyService:
-    def __init__(self):
-        self._utsconnection = UTSConnection()
-        self._servicepath = "/UTS/rest/kurum"
+    _servicepath = "/UTS/rest/kurum"
 
     # FİRMA SORGULAMA SERVİSİ
     # Firmaların MERSİS numarası, vergi numarası, ÇKYS numarası ve/ya firma unvanı ile firma tanımlayıcı numarası
@@ -32,6 +30,6 @@ class QueryCompanyService:
         servicedata = servicedata + "}"
 
         if parametercheck:
-            return self._utsconnection.connect(servicepath, servicedata)
+            return UTSConnection().connect(servicepath, servicedata)
         else:
             return ""
