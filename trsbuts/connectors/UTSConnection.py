@@ -11,29 +11,28 @@ class UTSConnection:
 
     def connect(self, servicepath: str, servicedata: str):
         company = frappe.defaults.get_user_default("Company")
+        server_url = frappe.db.get_single_value("TR UTS Integration Settings", "server")
+        utstoken = frappe.db.get_value("TR UTS Company Settings", company, "systemtoken")
         if frappe.db.get_value("TR UTS Company Settings", company, "usetest") == 0:
-            url = frappe.db.get_single_value("TR UTS Integration Settings", "server")
-            utstoken = frappe.db.get_value("TR UTS Company Settings", company, "systemtoken")
-        else:
-            url = frappe.db.get_single_value("TR UTS Integration Settings", "testserver")
+            server_url = frappe.db.get_single_value("TR UTS Integration Settings", "testserver")
             utstoken = frappe.db.get_value("TR UTS Company Settings", company, "testsystemtoken")
 
-        url = url + servicepath
+        url = server_url + servicepath
         # her web servis çağrısının başlık (header) kısmına utsToken etiketiyle sistem token’ının değerini eklemelidir
-        headers = {
+        _headers = {
             'utsToken': utstoken,
             'Content-Type': frappe.db.get_single_value("TR UTS Integration Settings", "contenttype")
         }
 
-        self._s.headers.update(headers)
+        self._s.headers.update(_headers)
         # Web servislerin tamamında HTTP request method olarak “POST” metodu kullanılmaktadır.
         response = self._s.post(url, servicedata)
 
         # For successful API call, response code will be 200 (OK)
         if response.ok:
-            # Loading the response data into a dict variable
-            # json.loads takes in only binary or string variables so using content to fetch binary content
-            # Loads (Load String) takes a Json file and converts into python data structure (dict or list, depending on JSON)
+            # Loading the response data into a dict variable json.loads takes in only binary or string variables so
+            # using content to fetch binary content Loads (Load String) takes a Json file and converts into python
+            # data structure (dict or list, depending on JSON)
             return json.loads(response.content)
         else:
             # If response code is not ok (200), print the resulting http error code with description
