@@ -14,9 +14,9 @@ frappe.ui.form.on('TR UTS Company Settings', {
                     testtoken: frm.doc.systemtoken
 	            },
 	            callback: function(r){
-                    frm.set_value("result", r.message)
+                    frm.set_value("result", r.message);
 	            }
-	        })
+	        });
 	    }
 	},
 		check_testsystemintegration: function(frm){
@@ -28,9 +28,9 @@ frappe.ui.form.on('TR UTS Company Settings', {
                     testtoken: frm.doc.testsystemtoken
 	            },
 	            callback: function(r){
-                    frm.set_value("testsystemresult", r.message)
+                    frm.set_value("testsystemresult", r.message);
 	            }
-	        })
+	        });
 	    }
 	}
 });

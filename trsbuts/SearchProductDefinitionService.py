@@ -14,7 +14,7 @@ class SearchProductDefinitionService:
         servicedata = servicedata + "\"UNO\":\"" + uno + "\""
         servicedata = servicedata + "}"
 
-        return self._utsconnection.connect(servicepath, servicedata)
+        return connect(servicepath, servicedata)
 
     # BÜTÜN ÜRÜNLERİ SORGULAMA SERVİSİ
     # Firmaların kendi ürünlerini çoklu olarak sorgulamalarını sağlayan servistir.
