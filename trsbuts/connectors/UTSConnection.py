@@ -16,11 +16,11 @@ class UTSConnection:
             utstoken = frappe.db.get_value("TR UTS Company Settings", company, "testsystemtoken")
         service_url = server_url + servicepath
         # her web servis çağrısının başlık (header) kısmına utsToken etiketiyle sistem token’ının değerini eklemelidir
-        _headers = dict(utsToken=utstoken)
-        _headers['Content-Type'] = frappe.db.get_single_value("TR UTS Integration Settings", "contenttype")
+        __headers = dict(utsToken=utstoken)
+        __headers['Content-Type'] = frappe.db.get_single_value("TR UTS Integration Settings", "contenttype")
 
         s = requests.Session()
-        s.headers.update(_headers)
+        s.headers.update(__headers)
         # Web servislerin tamamında HTTP request method olarak “POST” metodu kullanılmaktadır.
         response = s.post(service_url, servicedata)
 

@@ -22,17 +22,14 @@ def test_integration(test, testtoken):
     # servicedata = "{"
     # servicedata = servicedata + "\"VRG\":\"" + frappe.db.get_value("Company", company, "tax_id") + "\""
     # servicedata = servicedata + "}"
-
     servicedata = dict(VRG=frappe.db.get_value("Company", company, "tax_id"))
-
-    servicerequestdatafields = servicedata
 
     _requesturl = url + servicepath
 
     s = requests.Session()
     s.headers.update(__headers)
     # Web servislerin tamamında HTTP request method olarak “POST” metodu kullanılmaktadır.
-    response = s.post(_requesturl, servicerequestdatafields)
+    response = s.post(_requesturl, servicedata)
 
     return response.text
 
