@@ -1,4 +1,4 @@
-from trsbuts.connectors.UTSConnection import UTSConnection
+from apps.trsbuts.trsbuts.api import connect
 
 
 class QueryCompanyService:
@@ -35,6 +35,6 @@ class QueryCompanyService:
         # servicedata = servicedata + "}"
 
         if parametercheck:
-            return UTSConnection().connect(servicepath, servicedata)
+            return connect(servicepath, servicedata)
         else:
             return ""
