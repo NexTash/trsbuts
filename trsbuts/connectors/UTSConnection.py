@@ -32,4 +32,4 @@ class UTSConnection:
             return json.loads(response.content)
         else:
             # If response code is not ok (200), print the resulting http error code with description
-            return response.raise_for_status() + _headers + response.text
+            return response.raise_for_status()
