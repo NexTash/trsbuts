@@ -1,12 +1,15 @@
+from trsbuts.connectors.UTSConnection import UTSConnection
+
+
 class QueryCompanyService:
-    def __index__(self):
+    def __init__(self):
         self._utsconnection = UTSConnection()
         self._servicepath = "/UTS/rest/kurum"
 
     # FİRMA SORGULAMA SERVİSİ
     # Firmaların MERSİS numarası, vergi numarası, ÇKYS numarası ve/ya firma unvanı ile firma tanımlayıcı numarası
     # içeren firma bilgilerini sorgulamasını sağlayan servistir.
-    def firmasorgula(self, mrs, vrg, unv, krn, cky):
+    def firmasorgula(self, mrs="", vrg="", unv="", krn="", cky=""):
         servicepath = self._servicepath + "/firmaSorgula"
         parametercheck = False
         servicedata = "{"
