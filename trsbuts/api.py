@@ -38,4 +38,7 @@ def test_integration(test, testtoken):
 def get_utsid_by_taxid(vrg):
     q = QueryCompanyService()
     d: list = q.firmasorgula(vrg=vrg)
-    return d[0].get('KRN')
+    if len(d) == 1:
+        return d[0].get('KRN')
+    else:
+        return ""
