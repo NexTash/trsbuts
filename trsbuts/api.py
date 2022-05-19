@@ -19,9 +19,6 @@ def test_integration(test, testtoken):
     headers = dict(utsToken=testtoken)
     headers['Content-Type'] = frappe.db.get_single_value("TR UTS Integration Settings", "contenttype")
 
-    # servicedata = "{"
-    # servicedata = servicedata + "\"VRG\":\"" + frappe.db.get_value("Company", company, "tax_id") + "\""
-    # servicedata = servicedata + "}"
     servicedata = dict(VRG=frappe.db.get_value("Company", company, "tax_id"))
 
     _requesturl = url + servicepath
@@ -38,7 +35,24 @@ def test_integration(test, testtoken):
 def get_utsid_by_taxid(vrg):
     q = QueryCompanyService()
     d: list = q.firmasorgula(vrg=vrg)
-    if len(d) >= 1:
+    if len(d) == 1:
         return d[0].get('KRN')
-    else:
-        return ""
+    if len(d) == 0:
+        frappe.throw(
+            title='Hata',
+            msg='Vergi No ÜTS\'de kayıtlı değildir.'
+        )
+    if len(d) > 1:
+        branches: list = list()
+        for branch in d:
+            if branch.get('DRM') == 'AKTIF':
+                branchlist: list = list()
+                branchlist.append(branch.get('KRN'))
+                branchlist.append(branch.get('GAD'))
+                branches.append(branchlist)
+        frappe.msgprint(
+            msg=branches,
+            title='Aktif şubeler',
+            as_table=True,
+            as_list=False
+        )

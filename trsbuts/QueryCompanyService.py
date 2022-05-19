@@ -11,34 +11,28 @@ class QueryCompanyService:
         servicepath = self._servicepath + "/firmaSorgula"
         parametercheck = False
         servicedata = "{"
-        # servicedata = dict()
         if mrs != "":
             servicedata = servicedata + "\"MRS\":\"" + mrs + "\""
-            # servicedata['MRS'] = mrs
             parametercheck = True
         if vrg != "":
             if parametercheck:
                 servicedata = servicedata + ","
             servicedata = servicedata + "\"VRG\":\"" + vrg + "\""
-            # servicedata['VRG'] = vrg
             parametercheck = True
         if unv != "":
             if parametercheck:
                 servicedata = servicedata + ","
             servicedata = servicedata + "\"UNV\":\"" + unv + "\","
-            # servicedata['UNV'] = unv
             parametercheck = True
         if krn != "":
             if parametercheck:
                 servicedata = servicedata + ","
             servicedata = servicedata + "\"KRN\":" + krn
-            # servicedata['KRN'] = krn
             parametercheck = True
         if cky != "":
             if parametercheck:
                 servicedata = servicedata + ","
             servicedata = servicedata + "\"CKY\":\"" + cky + "\""
-            # servicedata['CKY'] = cky
             parametercheck = True
 
         servicedata = servicedata + "}"
