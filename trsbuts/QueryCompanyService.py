@@ -36,9 +36,10 @@ class QueryCompanyService:
             parametercheck = True
 
         if parametercheck:
-            servicedata = servicedata + "}"
-            servicepath = self._servicepath + "/firmaSorgula"
             c: UTSConnection = UTSConnection()
-            return c.connect(servicepath, servicedata)
+            return c.connect(
+                self._servicepath + "/firmaSorgula",
+                servicedata + "}"
+            )
         else:
             return ""
