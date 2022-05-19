@@ -2,13 +2,13 @@ from trsbuts.UTSConnection import UTSConnection
 
 
 class QueryCompanyService:
-    _servicepath = "/UTS/rest/kurum"
+    def __init__(self):
+        self._servicepath = "/UTS/rest/kurum"
 
     # FİRMA SORGULAMA SERVİSİ
     # Firmaların MERSİS numarası, vergi numarası, ÇKYS numarası ve/ya firma unvanı ile firma tanımlayıcı numarası
     # içeren firma bilgilerini sorgulamasını sağlayan servistir.
     def firmasorgula(self, mrs="", vrg="", unv="", krn="", cky=""):
-        servicepath = self._servicepath + "/firmaSorgula"
         parametercheck = False
         servicedata = "{"
         if mrs != "":
@@ -35,9 +35,9 @@ class QueryCompanyService:
             servicedata = servicedata + "\"CKY\":\"" + cky + "\""
             parametercheck = True
 
-        servicedata = servicedata + "}"
-
         if parametercheck:
+            servicedata = servicedata + "}"
+            servicepath = self._servicepath + "/firmaSorgula"
             c: UTSConnection = UTSConnection()
             return c.connect(servicepath, servicedata)
         else:
