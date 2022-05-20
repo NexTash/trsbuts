@@ -1,5 +1,6 @@
 import requests
 from trsbuts.QueryCompanyService import QueryCompanyService
+from trsbuts.SearchProductDefinitionService import SearchProductDefinitionService
 
 import frappe
 
@@ -35,6 +36,33 @@ def test_integration(test, testtoken):
 def get_utsid_by_taxid(vrg):
     q = QueryCompanyService()
     d: list = q.firmasorgula(vrg=vrg)
+    if len(d) == 1:
+        return d[0].get('KRN')
+    if len(d) == 0:
+        frappe.throw(
+            title='Hata',
+            msg='Vergi No ÜTS\'de kayıtlı değildir.'
+        )
+    if len(d) > 1:
+        branches: list = list()
+        for branch in d:
+            if branch.get('DRM') == 'AKTIF':
+                branchlist: list = list()
+                branchlist.append(branch.get('KRN'))
+                branchlist.append(branch.get('GAD'))
+                branches.append(branchlist)
+        frappe.msgprint(
+            msg=branches,
+            title='Aktif şubeler',
+            as_table=True,
+            as_list=False
+        )
+
+
+@frappe.whitelist()
+def get_urun_by_uno(uno):
+    q = SearchProductDefinitionService()
+    d: list = q.urunsorgula(uno=uno)
     if len(d) == 1:
         return d[0].get('KRN')
     if len(d) == 0:
