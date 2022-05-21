@@ -115,7 +115,7 @@ def get_tekilurun_by_batch(batch):
     if len(d) >= 1:
         frappe.msgprint(
             msg=d
-            title='Aktif şubeler',
-            as_table=True,
-            as_list=False
+        title = 'Aktif şubeler',
+                as_table = True,
+                           as_list = False
         )
