@@ -123,7 +123,7 @@ def get_tekilurun_by_batch(batch):
             delete_permanently=True)
     lowerdict: dict = dict()
     for key in individual.keys():
-        lowerdict[key.lower] = individual.get(key)
+        lowerdict[key.lower()] = individual.get(key)
 
     b.append("individual_product", lowerdict)
     b.save()
