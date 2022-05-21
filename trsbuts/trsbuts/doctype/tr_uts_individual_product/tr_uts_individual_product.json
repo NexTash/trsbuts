@@ -1,0 +1,111 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-05-21 23:28:21.164427",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "uno",
+  "lno",
+  "adt",
+  "mme",
+  "urt",
+  "skt",
+  "utp",
+  "uik",
+  "uak",
+  "skg",
+  "kkg",
+  "tka",
+  "kka",
+  "ius"
+ ],
+ "fields": [
+  {
+   "fieldname": "uno",
+   "fieldtype": "Data",
+   "label": "\u00dcr\u00fcn Numaras\u0131"
+  },
+  {
+   "fieldname": "lno",
+   "fieldtype": "Data",
+   "label": "Lot/Batch Numaras\u0131"
+  },
+  {
+   "fieldname": "adt",
+   "fieldtype": "Int",
+   "label": "Adet"
+  },
+  {
+   "fieldname": "mme",
+   "fieldtype": "Data",
+   "label": "Marka Model Etiket"
+  },
+  {
+   "fieldname": "urt",
+   "fieldtype": "Data",
+   "label": "\u00dcretim Tarihi"
+  },
+  {
+   "fieldname": "skt",
+   "fieldtype": "Data",
+   "label": "Son Kullanma Tarihi"
+  },
+  {
+   "fieldname": "utp",
+   "fieldtype": "Link",
+   "label": "\u00dcr\u00fcn Tipi",
+   "options": "TR UTS Product Type"
+  },
+  {
+   "fieldname": "uik",
+   "fieldtype": "Data",
+   "label": "\u00dcretici/ \u0130thalat\u00e7\u0131 Kurum Numaras\u0131"
+  },
+  {
+   "fieldname": "uak",
+   "fieldtype": "Select",
+   "label": "\u00dcr\u00fcn A\u011fac\u0131 Konfig\u00fcrasyonu",
+   "options": "TEKIL\nLOT"
+  },
+  {
+   "default": "0",
+   "fieldname": "skg",
+   "fieldtype": "Check",
+   "label": "Satarken Kimlik Numaras\u0131 Gerekli Mi?"
+  },
+  {
+   "default": "0",
+   "fieldname": "kkg",
+   "fieldtype": "Check",
+   "label": "Kullan\u0131rken Kimlik Numaras\u0131 Gerekli Mi?"
+  },
+  {
+   "fieldname": "tka",
+   "fieldtype": "Int",
+   "label": "Kullan\u0131labilir Adet"
+  },
+  {
+   "fieldname": "kka",
+   "fieldtype": "Int",
+   "label": "KKA"
+  },
+  {
+   "fieldname": "ius",
+   "fieldtype": "Int",
+   "label": "IUS"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-05-21 23:28:21.164427",
+ "modified_by": "Administrator",
+ "module": "Trsbuts",
+ "name": "TR UTS Individual Product",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
