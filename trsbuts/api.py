@@ -1,4 +1,5 @@
 import requests
+from trsbuts.InquiringService import InquiringService
 from trsbuts.QueryCompanyService import QueryCompanyService
 from trsbuts.SearchProductDefinitionService import SearchProductDefinitionService
 
@@ -34,6 +35,7 @@ def test_integration(test, testtoken):
 
 @frappe.whitelist()
 def get_utsid_by_taxid(vrg):
+    object_name = "Vergi No"
     q = QueryCompanyService()
     d: list = q.firmasorgula(vrg=vrg)
     if len(d) == 1:
@@ -41,7 +43,7 @@ def get_utsid_by_taxid(vrg):
     if len(d) == 0:
         frappe.throw(
             title='Hata',
-            msg='Vergi No ÜTS\'de kayıtlı değildir.'
+            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
         )
     if len(d) > 1:
         branches: list = list()
@@ -61,6 +63,7 @@ def get_utsid_by_taxid(vrg):
 
 @frappe.whitelist()
 def get_urun_by_uno(uno):
+    object_name = "Parti"
     q = SearchProductDefinitionService()
     d: list = q.urunsorgula(uno=uno)
     if len(d) == 1:
@@ -68,7 +71,7 @@ def get_urun_by_uno(uno):
     if len(d) == 0:
         frappe.throw(
             title='Hata',
-            msg='Vergi No ÜTS\'de kayıtlı değildir.'
+            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
         )
     if len(d) > 1:
         branches: list = list()
@@ -80,6 +83,38 @@ def get_urun_by_uno(uno):
                 branches.append(branchlist)
         frappe.msgprint(
             msg=branches,
+            title='Aktif şubeler',
+            as_table=True,
+            as_list=False
+        )
+
+
+@frappe.whitelist()
+def get_tekilurun_by_batch(batch):
+    b = frappe.get_doc("Batch", batch)
+    i = frappe.get_doc("Item", b.item)
+    l: list = frappe.get_all(
+        i.get_table_field_doctype("barcodes"),
+        filters={
+            'parent': b.item,
+            'parentfield': 'barcodes',
+            'parenttype': 'Item',
+            'barcode_type': 'EAN'
+        },
+        fields={
+            "barcode"
+        })
+    object_name = "Tekil Ürün"
+    q = InquiringService()
+    d: list = q.tekilurunsorgula(uno=l[0].barcode, lno=b.vendor_batch)
+    if len(d) == 0:
+        frappe.throw(
+            title='Hata',
+            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        )
+    if len(d) >= 1:
+        frappe.msgprint(
+            msg=d
             title='Aktif şubeler',
             as_table=True,
             as_list=False
