@@ -106,7 +106,7 @@ def get_tekilurun_by_batch(batch):
         })
     object_name = "Tekil Ürün"
     q = InquiringService()
-    d: list = q.tekilurunsorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
+    d: dict = q.tekilurunsorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
     if len(d) == 0:
         frappe.throw(
             title='Hata',
@@ -114,7 +114,7 @@ def get_tekilurun_by_batch(batch):
         )
     if len(d) >= 1:
         frappe.msgprint(
-            msg=d,
+            msg=d.get('SNC'),
             title='Aktif şubeler',
             as_table=True,
             as_list=False
