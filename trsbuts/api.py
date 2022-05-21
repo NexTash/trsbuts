@@ -107,15 +107,24 @@ def get_tekilurun_by_batch(batch):
     object_name = "Tekil Ürün"
     q = InquiringService()
     d: dict = q.tekilurunsorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
-    if len(d) == 0:
-        frappe.throw(
-            title='Hata',
-            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
-        )
-    if len(d) >= 1:
-        frappe.msgprint(
-            msg=d.get("SNC"),
-            title='Aktif şubeler',
-            as_table=False,
-            as_list=True
-        )
+    individual: dict = d.get("SNC")
+    if len(individual) == 0:
+        return ""
+    for children in frappe.get_all(
+            b.get_table_field_doctype("individual_product"),
+            filters={
+                'parent': b.name,
+                'parentfield': 'individual_product',
+                'parenttype': 'Batch'
+            }):
+        frappe.delete_doc(
+            b.get_table_field_doctype("individual_product"),
+            children.name,
+            delete_permanently=True)
+    lowerdict: dict = dict()
+    for key in individual.keys():
+        lowerdict[key.lower] = individual.get(key)
+
+    b.append("individual_product", lowerdict)
+    b.save()
+    return ""
