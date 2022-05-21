@@ -107,7 +107,10 @@ def get_tekilurun_by_batch(batch):
     object_name = "Tekil Ürün"
     q = InquiringService()
     d: dict = q.tekilurunsorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
-    individual: dict = d.get("SNC")[0]
+    try:
+        individual: dict = d.get("SNC")[0]
+    except IndexError:
+        return ""
     if len(individual) == 0:
         return ""
     for children in frappe.get_all(

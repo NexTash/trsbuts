@@ -40,6 +40,7 @@
   {
    "fieldname": "mme",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Marka Model Etiket"
   },
   {
@@ -55,6 +56,7 @@
   {
    "fieldname": "utp",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "\u00dcr\u00fcn Tipi",
    "options": "TR UTS Product Type"
   },
@@ -84,23 +86,26 @@
   {
    "fieldname": "tka",
    "fieldtype": "Int",
+   "in_list_view": 1,
    "label": "Kullan\u0131labilir Adet"
   },
   {
    "fieldname": "kka",
    "fieldtype": "Int",
+   "in_list_view": 1,
    "label": "KKA"
   },
   {
    "fieldname": "ius",
    "fieldtype": "Int",
+   "in_list_view": 1,
    "label": "IUS"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-05-21 23:28:21.164427",
+ "modified": "2022-05-21 23:35:21.069579",
  "modified_by": "Administrator",
  "module": "Trsbuts",
  "name": "TR UTS Individual Product",
