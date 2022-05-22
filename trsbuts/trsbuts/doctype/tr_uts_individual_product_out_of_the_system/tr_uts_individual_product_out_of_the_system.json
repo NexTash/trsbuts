@@ -1,0 +1,158 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:bid",
+ "creation": "2022-05-22 13:57:37.290750",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "uno",
+  "lno",
+  "sno",
+  "adt",
+  "mme",
+  "bid",
+  "gkk",
+  "kun",
+  "bno",
+  "bza",
+  "bti",
+  "bti_description",
+  "bdr",
+  "bdr_description",
+  "ben",
+  "uik",
+  "git",
+  "bku",
+  "dku"
+ ],
+ "fields": [
+  {
+   "fieldname": "uno",
+   "fieldtype": "Data",
+   "label": "\u00dcr\u00fcn Numaras\u0131"
+  },
+  {
+   "fieldname": "lno",
+   "fieldtype": "Data",
+   "label": "Lot/Batch Numaras\u0131"
+  },
+  {
+   "fieldname": "adt",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Adet"
+  },
+  {
+   "fieldname": "mme",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Marka Model Etiket"
+  },
+  {
+   "description": "Bildirimin bildirim kodudur.",
+   "fieldname": "bid",
+   "fieldtype": "Data",
+   "label": "Bildirim ID",
+   "unique": 1
+  },
+  {
+   "description": "Bildirimi yapan kurum numaras\u0131d\u0131r.",
+   "fieldname": "gkk",
+   "fieldtype": "Data",
+   "label": "Kurum No"
+  },
+  {
+   "description": "Bildirim zaman\u0131d\u0131r.",
+   "fieldname": "bza",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bildirim Zaman\u0131"
+  },
+  {
+   "fieldname": "bti",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "bti",
+   "options": "TR UTS Notification Type"
+  },
+  {
+   "fieldname": "bdr",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "bdr",
+   "options": "TR UTS Notification Status"
+  },
+  {
+   "fieldname": "uik",
+   "fieldtype": "Data",
+   "label": "\u00dcretici/ \u0130thalat\u00e7\u0131 Kurum Numaras\u0131"
+  },
+  {
+   "fetch_from": "bti.description",
+   "fetch_if_empty": 1,
+   "fieldname": "bti_description",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bildirim Tipi"
+  },
+  {
+   "fetch_from": "bdr.description",
+   "fetch_if_empty": 1,
+   "fieldname": "bdr_description",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bildirim Durumu"
+  },
+  {
+   "fieldname": "sno",
+   "fieldtype": "Data",
+   "label": "Seri/S\u0131ra Numaras\u0131"
+  },
+  {
+   "fieldname": "kun",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Di\u011fer Kurum No"
+  },
+  {
+   "fieldname": "bno",
+   "fieldtype": "Data",
+   "label": "Belge No"
+  },
+  {
+   "default": "0",
+   "fieldname": "ben",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Bedelsiz Numune"
+  },
+  {
+   "fieldname": "git",
+   "fieldtype": "Data",
+   "label": "Ger\u00e7ek \u0130\u015flem Tarihi"
+  },
+  {
+   "fieldname": "bku",
+   "fieldtype": "Data",
+   "label": "Bildiren Kurum Unvan"
+  },
+  {
+   "fieldname": "dku",
+   "fieldtype": "Data",
+   "label": "Di\u011fer Kurum Unvan"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-05-22 17:04:33.009508",
+ "modified_by": "Administrator",
+ "module": "Trsbuts",
+ "name": "TR UTS Individual Product Out of the System",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

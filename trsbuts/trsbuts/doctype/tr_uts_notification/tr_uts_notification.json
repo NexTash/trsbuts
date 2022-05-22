@@ -1,0 +1,166 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:bid",
+ "creation": "2022-05-22 17:28:02.578290",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "uno",
+  "lno",
+  "sno",
+  "adt",
+  "bno",
+  "bdr",
+  "bdr_description",
+  "bti",
+  "bti_description",
+  "bid",
+  "bza",
+  "gkk",
+  "kun",
+  "ben",
+  "uik",
+  "bku",
+  "dku",
+  "aad",
+  "git"
+ ],
+ "fields": [
+  {
+   "fieldname": "uno",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "\u00dcr\u00fcn Numaras\u0131"
+  },
+  {
+   "fieldname": "lno",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Lot/Batch Numaras\u0131"
+  },
+  {
+   "fieldname": "sno",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Seri/S\u0131ra Numaras\u0131"
+  },
+  {
+   "fieldname": "adt",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Adet"
+  },
+  {
+   "fieldname": "bno",
+   "fieldtype": "Data",
+   "label": "Belge numaras\u0131"
+  },
+  {
+   "fieldname": "bdr",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "bdr",
+   "options": "TR UTS Notification Status"
+  },
+  {
+   "fetch_from": "bdr.description",
+   "fetch_if_empty": 1,
+   "fieldname": "bdr_description",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bildirim Durumu"
+  },
+  {
+   "fieldname": "bti",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "bti",
+   "options": "TR UTS Notification Type"
+  },
+  {
+   "fetch_from": "bti.description",
+   "fetch_if_empty": 1,
+   "fieldname": "bti_description",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "\u00dcr\u00fcn Tipi"
+  },
+  {
+   "fieldname": "bid",
+   "fieldtype": "Data",
+   "label": "Bildirim Kodu",
+   "unique": 1
+  },
+  {
+   "fieldname": "bza",
+   "fieldtype": "Data",
+   "label": "Bildirim Zaman\u0131"
+  },
+  {
+   "fieldname": "gkk",
+   "fieldtype": "Data",
+   "label": "Bildiren Kurum No"
+  },
+  {
+   "fieldname": "kun",
+   "fieldtype": "Data",
+   "label": "Di\u011fer Kurum No"
+  },
+  {
+   "default": "0",
+   "fieldname": "ben",
+   "fieldtype": "Check",
+   "label": "Bedelsiz Numune"
+  },
+  {
+   "fieldname": "uik",
+   "fieldtype": "Data",
+   "label": "\u00dcretici/\u0130thalat\u00e7\u0131 Kurum No"
+  },
+  {
+   "fieldname": "bku",
+   "fieldtype": "Data",
+   "label": "Bildiren Kurum Unvan"
+  },
+  {
+   "fieldname": "dku",
+   "fieldtype": "Data",
+   "label": "Di\u011fer Kurum Unvan"
+  },
+  {
+   "fieldname": "aad",
+   "fieldtype": "Int",
+   "label": "Al\u0131nan Adet"
+  },
+  {
+   "fieldname": "git",
+   "fieldtype": "Data",
+   "label": "Ger\u00e7ek \u0130\u015flem Tarihi"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-05-22 17:28:02.578290",
+ "modified_by": "Administrator",
+ "module": "Trsbuts",
+ "name": "TR UTS Notification",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -142,3 +142,115 @@ def get_tekilurun_by_batch(batch, vendor_batch):
     b.append("individual_product", lowerdict)
     b.save()
     return ""
+
+
+@frappe.whitelist()
+def get_sistemdisitekilurun_by_batch(batch, vendor_batch):
+    object_name = "Sistem Dışına Çıkan Tekil Ürün"
+    b = frappe.get_doc("Batch", batch)
+    i = frappe.get_doc("Item", b.item)
+    l: list = frappe.get_all(
+        i.get_table_field_doctype("barcodes"),
+        filters={
+            'parent': b.item,
+            'parentfield': 'barcodes',
+            'parenttype': 'Item',
+            'barcode_type': 'EAN'
+        },
+        fields={
+            "barcode"
+        })
+    if len(l) == 0:
+        frappe.throw(
+            title='Hata',
+            msg='Sisteminizde Birincil Ürün Numarası kayıtlı değildir.'
+        )
+    q = InquiringService()
+    if b.vendor_batch == "":
+        b.vendor_batch = vendor_batch
+    d: dict = q.tekilurunsistemdisinacikansorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
+    individuals: dict = dict()
+    try:
+        individuals = d.get("SNC")
+    except IndexError:
+        frappe.throw(
+            title='Hata',
+            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        )
+    if len(individuals) == 0:
+        return ""
+    for children in frappe.get_all(
+            b.get_table_field_doctype("individual_product_out_of_the_system"),
+            filters={
+                'parent': b.name,
+                'parentfield': 'individual_product_out_of_the_system',
+                'parenttype': 'Batch'
+            }):
+        frappe.delete_doc(
+            b.get_table_field_doctype("individual_product_out_of_the_system"),
+            children.name,
+            delete_permanently=True)
+    lowerdict: dict = dict()
+    for individual in individuals:
+        for key in individual.keys():
+            lowerdict[key.lower()] = individual.get(key)
+
+        b.append("individual_product_out_of_the_system", lowerdict)
+    b.save()
+    return ""
+
+
+@frappe.whitelist()
+def get_askidakitekilurun_by_batch(batch, vendor_batch):
+    object_name = "Askıdaki Tekil Ürün"
+    b = frappe.get_doc("Batch", batch)
+    i = frappe.get_doc("Item", b.item)
+    l: list = frappe.get_all(
+        i.get_table_field_doctype("barcodes"),
+        filters={
+            'parent': b.item,
+            'parentfield': 'barcodes',
+            'parenttype': 'Item',
+            'barcode_type': 'EAN'
+        },
+        fields={
+            "barcode"
+        })
+    if len(l) == 0:
+        frappe.throw(
+            title='Hata',
+            msg='Sisteminizde Birincil Ürün Numarası kayıtlı değildir.'
+        )
+    q = InquiringService()
+    if b.vendor_batch == "":
+        b.vendor_batch = vendor_batch
+    d: dict = q.vermebildirimaskidakilersorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
+    individuals: dict = dict()
+    try:
+        individuals = d.get("SNC")
+    except IndexError:
+        frappe.throw(
+            title='Hata',
+            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        )
+    if len(individuals) == 0:
+        return ""
+    for children in frappe.get_all(
+            b.get_table_field_doctype("pending_individual_product"),
+            filters={
+                'parent': b.name,
+                'parentfield': 'pending_individual_product',
+                'parenttype': 'Batch'
+            }):
+        frappe.delete_doc(
+            b.get_table_field_doctype("pending_individual_product"),
+            children.name,
+            delete_permanently=True)
+    lowerdict: dict = dict()
+    for individual in individuals:
+        for key in individual.keys():
+            lowerdict[key.lower()] = individual.get(key)
+
+        b.append("pending_individual_product", lowerdict)
+    b.save()
+    return ""

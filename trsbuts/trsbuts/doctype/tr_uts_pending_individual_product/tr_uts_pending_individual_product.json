@@ -1,0 +1,108 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:bid",
+ "creation": "2022-05-22 16:36:13.288132",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "uno",
+  "lno",
+  "sno",
+  "adt",
+  "mme",
+  "bid",
+  "kun",
+  "bno",
+  "bza",
+  "bti",
+  "bti_description",
+  "aku"
+ ],
+ "fields": [
+  {
+   "fieldname": "uno",
+   "fieldtype": "Data",
+   "label": "\u00dcr\u00fcn Numaras\u0131"
+  },
+  {
+   "fieldname": "lno",
+   "fieldtype": "Data",
+   "label": "Lot/Batch Numaras\u0131"
+  },
+  {
+   "fieldname": "sno",
+   "fieldtype": "Data",
+   "label": "Seri/S\u0131ra Numaras\u0131"
+  },
+  {
+   "fieldname": "adt",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Adet"
+  },
+  {
+   "fieldname": "mme",
+   "fieldtype": "Data",
+   "label": "Marka Model Etiket"
+  },
+  {
+   "description": "Bildirimin bildirim kodudur.",
+   "fieldname": "bid",
+   "fieldtype": "Data",
+   "label": "Bildirim ID",
+   "unique": 1
+  },
+  {
+   "fieldname": "kun",
+   "fieldtype": "Data",
+   "label": "G\u00f6nderilen Kurum No"
+  },
+  {
+   "fieldname": "bno",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Belge Numaras\u0131"
+  },
+  {
+   "description": "Bildirim zaman\u0131d\u0131r.",
+   "fieldname": "bza",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bildirim Zaman\u0131"
+  },
+  {
+   "fieldname": "bti",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "bti",
+   "options": "TR UTS Notification Type"
+  },
+  {
+   "fetch_from": "bti.description",
+   "fetch_if_empty": 1,
+   "fieldname": "bti_description",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bildirim Tipi"
+  },
+  {
+   "fieldname": "aku",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Alan Kurum Unvan"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-05-22 16:51:53.011347",
+ "modified_by": "Administrator",
+ "module": "Trsbuts",
+ "name": "TR UTS Pending Individual Product",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
