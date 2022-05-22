@@ -112,8 +112,9 @@ def get_tekilurun_by_batch(batch):
         )
     q = InquiringService()
     d: dict = q.tekilurunsorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
+    individual: dict = dict()
     try:
-        individual: dict = d.get("SNC")[0]
+        individual = d.get("SNC")[0]
     except IndexError:
         frappe.throw(
             title='Hata',
