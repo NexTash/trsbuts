@@ -90,7 +90,7 @@ def get_urun_by_uno(uno):
 
 
 @frappe.whitelist()
-def get_tekilurun_by_batch(batch):
+def get_tekilurun_by_batch(batch, vendor_batch):
     object_name = "Tekil Ürün"
     b = frappe.get_doc("Batch", batch)
     i = frappe.get_doc("Item", b.item)
@@ -111,6 +111,8 @@ def get_tekilurun_by_batch(batch):
             msg='Sisteminizde Birincil Ürün Numarası kayıtlı değildir.'
         )
     q = InquiringService()
+    if b.vendor_batch == "":
+        b.vendor_batch = vendor_batch
     d: dict = q.tekilurunsorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
     individual: dict = dict()
     try:

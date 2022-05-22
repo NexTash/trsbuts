@@ -74,7 +74,7 @@
    "columns": 0,
    "creation": "2022-05-21 15:37:41.959285",
    "default": null,
-   "depends_on": "vendor_batch;",
+   "depends_on": "vendor_batch",
    "description": null,
    "docstatus": 0,
    "dt": "Batch",
