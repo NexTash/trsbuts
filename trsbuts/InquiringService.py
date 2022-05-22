@@ -73,8 +73,6 @@ class InquiringService:
         parametercheck = False
         servicedata = "{"
         if str(kun) != "":
-            if parametercheck:
-                servicedata = servicedata + ","
             servicedata = servicedata + "\"KUN\":" + str(kun)
             parametercheck = True
         if uno != "":
@@ -113,8 +111,6 @@ class InquiringService:
         parametercheck = False
         servicedata = "{"
         if str(gkk) != "":
-            if parametercheck:
-                servicedata = servicedata + ","
             servicedata = servicedata + "\"GKK\":" + str(gkk)
             parametercheck = True
         if bno != "":
@@ -146,3 +142,25 @@ class InquiringService:
             )
         else:
             return ""
+
+    # Alınmak İstenmeyen Verme Bildirimlerimi Sorgula
+    # Bir kuruma gelen verme bildirimleri, alma yapması beklenen
+    # firma tarafından kabul edilmeyecekse; bu bildirimin artık kuruma gelen verme bildirimleri arasında
+    # görüntülenmemesi için firma tarafından Almak İstemiyorum olarak işaretlenir. Verme bildirimini yapan firma ise
+    # ilgili bildirimindeki tekil ürününün alınmak istenmiyor olarak işaretlenip işaretlenmediğini sorgulayabilir.
+    def alinmakistenmeyenvermebildirimlerimsorgula(self, adt=0, off=""):
+        parametercheck = False
+        servicedata = "{"
+        if adt != 0:
+            servicedata = servicedata + "\"ADT\":" + str(adt)
+            parametercheck = True
+        if off != "":
+            if parametercheck:
+                servicedata = servicedata + ","
+            servicedata = servicedata + "\"OFF\":\"" + off + "\""
+
+        c: UTSConnection = UTSConnection()
+        return c.connect(
+            self._servicepath + "/almakIstemiyorum/sorgula/alinmakIstenmeyenVermeBildirimlerim",
+            servicedata + "}"
+        )
