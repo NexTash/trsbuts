@@ -105,7 +105,11 @@ def get_tekilurun_by_batch(batch):
         fields={
             "barcode"
         })
-
+    if len(l) == 0:
+        frappe.throw(
+            title='Hata',
+            msg='Sisteminizde Birincil Ürün Numarası kayıtlı değildir.'
+        )
     q = InquiringService()
     d: dict = q.tekilurunsorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
     try:
