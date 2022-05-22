@@ -1,0 +1,101 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:bid",
+ "creation": "2022-05-22 23:05:28.679916",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "gkk",
+  "uno",
+  "lno",
+  "sno",
+  "adt",
+  "bid",
+  "kun",
+  "dku",
+  "aid",
+  "aid_description"
+ ],
+ "fields": [
+  {
+   "fieldname": "gkk",
+   "fieldtype": "Data",
+   "label": "G\u00f6nderen Kurum Kodu"
+  },
+  {
+   "fieldname": "uno",
+   "fieldtype": "Data",
+   "label": "\u00dcr\u00fcn Numaras\u0131"
+  },
+  {
+   "fieldname": "lno",
+   "fieldtype": "Data",
+   "label": "Lot/Batch Numaras\u0131"
+  },
+  {
+   "fieldname": "sno",
+   "fieldtype": "Data",
+   "label": "Seri/S\u0131ra Numaras\u0131"
+  },
+  {
+   "fieldname": "adt",
+   "fieldtype": "Int",
+   "label": "Adet"
+  },
+  {
+   "fieldname": "bid",
+   "fieldtype": "Data",
+   "label": "Bildirim Kodu",
+   "unique": 1
+  },
+  {
+   "fieldname": "kun",
+   "fieldtype": "Data",
+   "label": "Di\u011fer Kurum No"
+  },
+  {
+   "fieldname": "dku",
+   "fieldtype": "Data",
+   "label": "Di\u011fer Kurum Unvan"
+  },
+  {
+   "fieldname": "aid",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "aid",
+   "options": "TR UTS Notification Type"
+  },
+  {
+   "fetch_from": "aid.description",
+   "fetch_if_empty": 1,
+   "fieldname": "aid_description",
+   "fieldtype": "Data",
+   "label": "Almak \u0130stenme Durumu"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-05-22 23:05:28.679916",
+ "modified_by": "Administrator",
+ "module": "Trsbuts",
+ "name": "TR UTS Declined Delivery Notification",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
