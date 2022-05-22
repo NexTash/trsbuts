@@ -164,3 +164,23 @@ class InquiringService:
             self._servicepath + "/almakIstemiyorum/sorgula/alinmakIstenmeyenVermeBildirimlerim",
             servicedata + "}"
         )
+
+    # Almak İstemediğim Verme Bildirimlerini Sorgula
+    # Firma almak istemiyorum olarak işaretlediği verme bildirimlerini sorgular. Dilerse Almak İstiyorum Olarak İşaretle
+    # servisini kullanarak bildirimi bu listeden çıkarabilir.
+    def almakistemedigimvermebildirimlerimsorgula(self, adt=0, off=""):
+        parametercheck = False
+        servicedata = "{"
+        if adt != 0:
+            servicedata = servicedata + "\"ADT\":" + str(adt)
+            parametercheck = True
+        if off != "":
+            if parametercheck:
+                servicedata = servicedata + ","
+            servicedata = servicedata + "\"OFF\":\"" + off + "\""
+
+        c: UTSConnection = UTSConnection()
+        return c.connect(
+            self._servicepath + "/almakIstemiyorum/sorgula/almakIstemedigimVermeBildirimlerim",
+            servicedata + "}"
+        )
