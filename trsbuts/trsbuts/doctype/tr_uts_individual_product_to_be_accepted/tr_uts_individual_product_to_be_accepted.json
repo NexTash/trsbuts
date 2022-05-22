@@ -1,0 +1,137 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:bid",
+ "creation": "2022-05-22 18:14:42.145617",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "gkk",
+  "uno",
+  "lno",
+  "sno",
+  "adt",
+  "bid",
+  "bno",
+  "bza",
+  "bti",
+  "bti_description",
+  "uik",
+  "gku",
+  "mme",
+  "git",
+  "aun",
+  "aua"
+ ],
+ "fields": [
+  {
+   "fieldname": "gkk",
+   "fieldtype": "Data",
+   "label": "G\u00f6nderen Kurum Kodu"
+  },
+  {
+   "fieldname": "uno",
+   "fieldtype": "Data",
+   "label": "\u00dcr\u00fcn Numaras\u0131"
+  },
+  {
+   "fieldname": "lno",
+   "fieldtype": "Data",
+   "label": "Lot/Batch Numaras\u0131"
+  },
+  {
+   "fieldname": "sno",
+   "fieldtype": "Data",
+   "label": "Seri/S\u0131ra Numaras\u0131"
+  },
+  {
+   "fieldname": "adt",
+   "fieldtype": "Int",
+   "label": "Adet"
+  },
+  {
+   "fieldname": "bid",
+   "fieldtype": "Data",
+   "label": "Bildirim Kodu",
+   "unique": 1
+  },
+  {
+   "fieldname": "bno",
+   "fieldtype": "Data",
+   "label": "Belge Numaras\u0131"
+  },
+  {
+   "fieldname": "bza",
+   "fieldtype": "Data",
+   "label": "Bildirim Zaman\u0131"
+  },
+  {
+   "fieldname": "bti",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "bti",
+   "options": "TR UTS Notification Type"
+  },
+  {
+   "fetch_from": "bti.description",
+   "fetch_if_empty": 1,
+   "fieldname": "bti_description",
+   "fieldtype": "Data",
+   "label": "Bildirim Tipi"
+  },
+  {
+   "fieldname": "uik",
+   "fieldtype": "Data",
+   "label": "\u00dcretici/\u0130thalat\u00e7\u0131 Kurum Numaras\u0131"
+  },
+  {
+   "fieldname": "gku",
+   "fieldtype": "Data",
+   "label": "G\u00f6nderen Kurum Unvan"
+  },
+  {
+   "fieldname": "mme",
+   "fieldtype": "Data",
+   "label": "Marka Model Etiket"
+  },
+  {
+   "fieldname": "git",
+   "fieldtype": "Data",
+   "label": "Ger\u00e7ek \u0130\u015flem Tarihi"
+  },
+  {
+   "fieldname": "aun",
+   "fieldtype": "Data",
+   "label": "Alt \u00dcr\u00fcn Numaras\u0131"
+  },
+  {
+   "fieldname": "aua",
+   "fieldtype": "Int",
+   "label": "Alt \u00dcr\u00fcn Adedi"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-05-22 18:14:42.145617",
+ "modified_by": "Administrator",
+ "module": "Trsbuts",
+ "name": "TR UTS Individual Product to be Accepted",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

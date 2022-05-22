@@ -109,7 +109,7 @@ class InquiringService:
 
     # Kabul Edilecek Tekil Ürün Sorgula
     # Kurum/firma kendisine yapılan verme bildirimlerini sorgular/alma yapabileceği bildirimleri listeler.
-    def bildirimalmabekleyenlersorgula(self, gkk="", bno="", uno="", bid="", san=1):
+    def bildirimalmabekleyenlersorgula(self, gkk="", bno="", uno="", bid="", san=0):
         parametercheck = False
         servicedata = "{"
         if str(gkk) != "":
@@ -132,7 +132,7 @@ class InquiringService:
                 servicedata = servicedata + ","
             servicedata = servicedata + "\"BID\":\"" + bid + "\""
             parametercheck = True
-        if san != 1:
+        if san != 0:
             if parametercheck:
                 servicedata = servicedata + ","
             servicedata = servicedata + "\"SAN\":" + str(san)
