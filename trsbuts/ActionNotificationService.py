@@ -2,593 +2,593 @@ import trsbuts.UTSConnection as UTSConnection
 
 
 class ActionNotificationService:
-    def __index__(self):
+    def __init__(self):
         self._utsconnection = UTSConnection()
         self._servicepath = self._servicepath + ""
 
     # Üretim Bildirimi
     # Üretici, ürettiği tekil ürünlerin her biri için bir Üretim Bildirimi yapar.
-    def uretimbildir(self, UNO, LNO, SNO, URT, SKT, ADT, UDI, SIP, KUS, GTK):
+    def uretimbildir(self, uno, lno, sno, urt, skt, adt, udi, sip, kus, gtk):
         servicepath = self._servicepath + "/uretim/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"" \
-                      + ",\"LNO\":\"" + LNO + "\"" \
-                      + ",\"SNO\":\"" + SNO + "\"" \
-                      + ",\"URT\":\"" + URT + "\"" \
-                      + ",\"SKT\":\"" + SKT + "\"" \
-                      + ",\"ADT\":" + ADT + "," \
-                      + ",\"UDI\":\"" + UDI + "\"" \
-                      + ",\"SIP\":\"" + SIP + "\"" \
-                      + ",\"KUS\":\"" + KUS + "\"" \
-                      + ",\"GTK\":\"" + GTK + "\"" \
+                      + "\"UNO\":\"" + uno + "\"" \
+                      + ",\"LNO\":\"" + lno + "\"" \
+                      + ",\"SNO\":\"" + sno + "\"" \
+                      + ",\"URT\":\"" + urt + "\"" \
+                      + ",\"SKT\":\"" + skt + "\"" \
+                      + ",\"ADT\":" + adt + "," \
+                      + ",\"UDI\":\"" + udi + "\"" \
+                      + ",\"SIP\":\"" + sip + "\"" \
+                      + ",\"KUS\":\"" + kus + "\"" \
+                      + ",\"GTK\":\"" + gtk + "\"" \
                       + "}"
 
     # İthalat Bildirimi
     # İthalatçı, ithal ettiği tekil ürünler için İthalat Bildirimi yapar.
-    def ithalatbildir(self, UNO, LNO, SNO, URT, SKT, ITT, ADT, UDI, IEU, MEU, GBN, SIP, KUS, GTK):
+    def ithalatbildir(self, uno, lno, sno, urt, skt, itt, adt, udi, ieu, meu, gbn, sip, kus, gtk):
         servicepath = self._servicepath + "/ithalat/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"URT\":\"" + URT + "\"," \
-                      + "\"SKT\":\"" + SKT + "\"," \
-                      + "\"ITT\":\"" + ITT + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"IEU\":" + IEU + "," \
-                      + "\"MEU\":" + MEU + "," \
-                      + "\"GBN\":\"" + GBN + "\"," \
-                      + "\"SIP\":\"" + SIP + "\"," \
-                      + "\"KUS\":\"" + KUS + "\"," \
-                      + "\"GTK\":\"" + GTK + "\"" \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"URT\":\"" + urt + "\"," \
+                      + "\"SKT\":\"" + skt + "\"," \
+                      + "\"ITT\":\"" + itt + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"IEU\":" + ieu + "," \
+                      + "\"MEU\":" + meu + "," \
+                      + "\"GBN\":\"" + gbn + "\"," \
+                      + "\"SIP\":\"" + sip + "\"," \
+                      + "\"KUS\":\"" + kus + "\"," \
+                      + "\"GTK\":\"" + gtk + "\"" \
                       + "}"
 
     # Yetkili Bayi İle İthalat Bildirimi
     # İthalatçı tarafından yetki verilen bayi ithalat bildirimi yapabilmektedir. Bunun için bayinin ithalat yapmak istediği
     # ürüne ait ithalatçı tarafından girilmiş olan yetkili distribütörlük belgesi olmalıdır.
-    def yetkilibayiileithalatbildir(self, UIK, UNO, LNO, SNO, URT, SKT, ITT, ADT, UDI, IEU, MEU, GBN, SIP, KUS, GTK):
+    def yetkilibayiileithalatbildir(self, uik, uno, lno, sno, urt, skt, itt, adt, udi, ieu, meu, gbn, sip, kus, gtk):
         servicepath = self._servicepath + "/ithalat/yetkiliBayiIle/ekle"
         servicedata = "{" \
-                      + "\"UIK\":" + UIK + "," \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"URT\":\"" + URT + "\"," \
-                      + "\"SKT\":\"" + SKT + "\"," \
-                      + "\"ITT\":\"" + ITT + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"IEU\":" + IEU + "," \
-                      + "\"MEU\":" + MEU + "," \
-                      + "\"GBN\":\"" + GBN + "\"," \
-                      + "\"SIP\":\"" + SIP + "\"," \
-                      + "\"KUS\":\"" + KUS + "\"," \
-                      + "\"GTK\":\"" + GTK + "\"" \
+                      + "\"UIK\":" + uik + "," \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"URT\":\"" + urt + "\"," \
+                      + "\"SKT\":\"" + skt + "\"," \
+                      + "\"ITT\":\"" + itt + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"IEU\":" + ieu + "," \
+                      + "\"MEU\":" + meu + "," \
+                      + "\"GBN\":\"" + gbn + "\"," \
+                      + "\"SIP\":\"" + sip + "\"," \
+                      + "\"KUS\":\"" + kus + "\"," \
+                      + "\"GTK\":\"" + gtk + "\"" \
                       + "}"
 
     # Verme Bildirimi
     # Kurum/firma kullanıcısı sahip olduğu tekil ürünlerini başka bir kurum/firmaya verdiğinde Verme Bildirimi yapar.
     # Satış, hibe, iade vb. yöntemler için Verme Bildirimi yapılır.
-    def vermebildir(self, UNO, LNO, SNO, ADT, KUN, BEN, BNO, GIT):
+    def vermebildir(self, uno, lno, sno, adt, kun, ben, bno, git):
         servicepath = self._servicepath + "/verme/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"KUN\":" + KUN + "," \
-                      + "\"BEN\":\"" + BEN + "\"," \
-                      + "\"BNO\":\"" + BNO + "\"," \
-                      + "\"GIT\":\"" + GIT + "\"" \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"KUN\":" + kun + "," \
+                      + "\"BEN\":\"" + ben + "\"," \
+                      + "\"BNO\":\"" + bno + "\"," \
+                      + "\"GIT\":\"" + git + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle Verme Bildirimi
-    def essizkimlikbilgisiilevermebildir(self, UDI, ADT, KUN, BNO):
+    def essizkimlikbilgisiilevermebildir(self, udi, adt, kun, bno):
         sservicepath = self._servicepath + "/verme/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"KUN\":" + KUN + "," \
-                      + "\"BNO\":\"" + BNO + "\"" \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"KUN\":" + kun + "," \
+                      + "\"BNO\":\"" + bno + "\"" \
                       + "}"
 
     # Alma Bildirimi
     # Kurum/firma kendisine verilen tekil ürünleri kabul etmek için Alma Bildirimi yapar. Bu bildirimle beraber tekil ürünün
     # sahipliği alıcı tarafa geçmiş olur.
-    def almabildir(self, VBI, ADT, GKK, UDI, UNO, LNO, SNO):
+    def almabildir(self, vbi, adt, gkk, udi, uno, lno, sno):
         servicepath = self._servicepath + "/alma/ekle"
         servicedata = "{" \
-                      + "\"VBI\":" + VBI + "," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"GKK\":" + GKK + "," \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"" \
+                      + "\"VBI\":" + vbi + "," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"GKK\":" + gkk + "," \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle Alma Bildirimi
-    def essizkimlikbilgisiilealmabildir(self, UDI, ADT, GKK):
+    def essizkimlikbilgisiilealmabildir(self, udi, adt, gkk):
         servicepath = self._servicepath + "/alma/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"GKK\":" + GKK \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"GKK\":" + gkk \
                       + "}"
 
     # ÜTS’de Tanımsız Yere Verme Bildirimi
     # Kurum/firma ÜTS'de tanımlı olmayan bir firmaya tekil ürün verdiğinde ÜTS’de Tanımsız Yere Verme Bildirimi yapar.
-    def utsdetanimsizyerevermebildir(self, UNO, LNO, SNO, ADT, BEN, VKN, BNO):
+    def utsdetanimsizyerevermebildir(self, uno, lno, sno, adt, ben, vkn, bno):
         servicepath = self._servicepath + "/utsdeTanimsizYereVerme/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"BEN\":\"" + BEN + "\"," \
-                      + "\"VKN\":" + VKN + "," \
-                      + "\"BNO\":\"" + BNO + "\"" \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"BEN\":\"" + ben + "\"," \
+                      + "\"VKN\":" + vkn + "," \
+                      + "\"BNO\":\"" + bno + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle ÜTS’de Tanımsız Yere Verme Bildirimi
-    def essizkimlikbilgisiileutsdetanimsizyerevermebildir(self, UDI, ADT, BEN, VKN, MEN, TKN, MEK, ODK, BNO):
+    def essizkimlikbilgisiileutsdetanimsizyerevermebildir(self, udi, adt, ben, vkn, men, tkn, mek, odk, bno):
         servicepath = self._servicepath + "/utsdeTanimsizYereVerme/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"BEN\":\"" + BEN + "\"," \
-                      + "\"VKN\":" + VKN + "," \
-                      + "\"MEN\":" + MEN + "," \
-                      + "\"TKN\":" + TKN + "," \
-                      + "\"MEK\":" + MEK + "," \
-                      + "\"ODK\":" + ODK + "," \
-                      + "\"BNO\":\"" + BNO + "\"" \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"BEN\":\"" + ben + "\"," \
+                      + "\"VKN\":" + vkn + "," \
+                      + "\"MEN\":" + men + "," \
+                      + "\"TKN\":" + tkn + ", " \
+                      + "\"MEK\":" + mek + "," \
+                      + "\"ODK\":" + odk + "," \
+                      + "\"BNO\":\"" + bno + "\"" \
                       + "}"
 
     # ÜTS’de Tanımsız Yerden İade Alma Bildirimi
     # Kurum/firma ÜTS'de tanımlı olmayan bir firmaya verdiği tekil ürünlerini iade aldığında ÜTS’de Tanımsız Yerden
     # İade Alma Bildirimi yapar.
-    def utsdetanimsizyerdeniadealmabildir(self, UTI, ADT, UDI, UNO, LNO, SNO):
+    def utsdetanimsizyerdeniadealmabildir(self, uti, adt, udi, uno, lno, sno):
         servicepath = self._servicepath + "/utsdeTanimsizYerdenIadeAlma/ekle"
         servicedata = "{" \
-                      + "\"UTI\":" + UTI + "," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"" \
+                      + "\"UTI\":" + uti + "," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi ile ÜTS’de Tanımsız Yerden İade Alma Bildirimi
-    def essizkimlikbilgisiileutsdetanimsizyerdeniadealmabildir(self, UDI, ADT):
+    def essizkimlikbilgisiileutsdetanimsizyerdeniadealmabildir(self, udi, adt):
         servicepath = self._servicepath + "/utsdeTanimsizYerdenIadeAlma/ekle"
         servicedata = "{" \
-                      + "\"UDI\":" + UDI + "," \
-                      + "\"ADT\":" + ADT \
+                      + "\"UDI\":" + udi + "," \
+                      + "\"ADT\":" + adt \
                       + "}"
 
     # Kullanım Bildirimi
     # Sağlık kuruluşu/uygulama tesisi tekil ürünü hasta/tüketiciye kullandığında Kullanım Bildirimi yapar.
-    def kullanimbildir(self, UNO, LNO, SNO, ADT, HAA, HAS, TKN, YKN, PAN, GIT, KTN, TUR, DTA):
+    def kullanimbildir(self, uno, lno, sno, adt, haa, has, tkn, ykn, pan, git, ktn, tur, dta):
         servicepath = self._servicepath + "/kullanim/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"HAA\":\"" + HAA + "\"," \
-                      + "\"HAS\":\"" + HAS + "\"," \
-                      + "\"TKN\":" + TKN + "," \
-                      + "\"YKN\":" + YKN + "," \
-                      + "\"PAN\":\"" + PAN + "\"," \
-                      + "\"GIT\":\"" + GIT + "\"," \
-                      + "\"KTN\":" + KTN + "," \
-                      + "\"TUR\":\"" + TUR + "\"," \
-                      + "\"DTA\":\"" + DTA + "\"" \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"HAA\":\"" + haa + "\"," \
+                      + "\"HAS\":\"" + has + "\"," \
+                      + "\"TKN\":" + tkn + "," \
+                      + "\"YKN\":" + ykn + "," \
+                      + "\"PAN\":\"" + pan + "\"," \
+                      + "\"GIT\":\"" + git + "\"," \
+                      + "\"KTN\":" + ktn + "," \
+                      + "\"TUR\":\"" + tur + "\"," \
+                      + "\"DTA\":\"" + dta + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle Kullanım Bildirimi
-    def essizkimlikbilgisiilekullanimbildir(self, UDI, ADT, HAA, HAS, TKN, YKN, PAN, GIT, KTN, TUR, DTA):
+    def essizkimlikbilgisiilekullanimbildir(self, udi, adt, haa, has, tkn, ykn, pan, git, ktn, tur, dta):
         servicepath = self._servicepath + "/kullanim/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"HAA\":\"" + HAA + "\"," \
-                      + "\"HAS\":\"" + HAS + "\"," \
-                      + "\"TKN\":" + TKN + "," \
-                      + "\"YKN\":" + YKN + "," \
-                      + "\"PAN\":\"" + PAN + "\"," \
-                      + "\"GIT\":\"" + GIT + "\"," \
-                      + "\"KTN\":" + KTN + "," \
-                      + "\"TUR\":\"" + TUR + "\"," \
-                      + "\"DTA\":\"" + DTA + "\"" \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"HAA\":\"" + haa + "\"," \
+                      + "\"HAS\":\"" + has + "\"," \
+                      + "\"TKN\":" + tkn + ", " \
+                      + "\"YKN\":" + ykn + "," \
+                      + "\"PAN\":\"" + pan + "\"," \
+                      + "\"GIT\":\"" + git + "\"," \
+                      + "\"KTN\":" + ktn + "," \
+                      + "\"TUR\":\"" + tur + "\"," \
+                      + "\"DTA\":\"" + dta + "\"" \
                       + "}"
 
     # Tüketiciye Verme Bildirimi
     # Satış yeri, tüketiciye verdiği tekil ürünler için tüketiciye verme bildirimi yapar. Satış, hibe vb. yöntemler için
     # Tüketiciye Verme Bildirimi yapılır.
-    def tuketiciyevermebildir(self, UNO, LNO, SNO, ADT, BEN, TUA, TUS, TKN, YKN, PAN, GIT, KTN, TUR, DTA):
+    def tuketiciyevermebildir(self, uno, lno, sno, adt, ben, tua, tus, tkn, ykn, pan, git, ktn, tur, dta):
         servicepath = self._servicepath + "/tuketiciyeVerme/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"BEN\":\"" + BEN + "\"," \
-                      + "\"TUA\":\"" + TUA + "\"," \
-                      + "\"TUS\":\"" + TUS + "\"," \
-                      + "\"TKN\":" + TKN + "," \
-                      + "\"YKN\":" + YKN + "," \
-                      + "\"PAN\":\"" + PAN + "\"," \
-                      + "\"GIT\":\"" + GIT + "\"," \
-                      + "\"KTN\":" + KTN + "," \
-                      + "\"TUR\":\"" + TUR + "\"," \
-                      + "\"DTA\":\"" + DTA + "\"" \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"BEN\":\"" + ben + "\"," \
+                      + "\"TUA\":\"" + tua + "\"," \
+                      + "\"TUS\":\"" + tus + "\"," \
+                      + "\"TKN\":" + tkn + ", " \
+                      + "\"YKN\":" + ykn + "," \
+                      + "\"PAN\":\"" + pan + "\"," \
+                      + "\"GIT\":\"" + git + "\"," \
+                      + "\"KTN\":" + ktn + "," \
+                      + "\"TUR\":\"" + tur + "\"," \
+                      + "\"DTA\":\"" + dta + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle Tüketiciye Verme Bildirimi
-    def essizkimlikbilgisiiletuketiciyevermebildir(self, UDI, ADT, BEN, TUA, TUS, TKN, YKN, PAN, GIT, KTN, TUR, DTA):
+    def essizkimlikbilgisiiletuketiciyevermebildir(self, udi, adt, ben, tua, tus, tkn, ykn, pan, git, ktn, tur, dta):
         servicepath = self._servicepath + "/tuketiciyeVerme/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"BEN\":\"" + BEN + "\"," \
-                      + "\"TUA\":\"" + TUA + "\"," \
-                      + "\"TUS\":\"" + TUS + "\"," \
-                      + "\"TKN\":" + TKN + "," \
-                      + "\"YKN\":" + YKN + "," \
-                      + "\"PAN\":\"" + PAN + "\"," \
-                      + "\"GIT\":\"" + GIT + "\"," \
-                      + "\"KTN\":" + KTN + "," \
-                      + "\"TUR\":\"" + TUR + "\"," \
-                      + "\"DTA\":\"" + DTA + "\"" \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"BEN\":\"" + ben + "\"," \
+                      + "\"TUA\":\"" + tua + "\"," \
+                      + "\"TUS\":\"" + tus + "\"," \
+                      + "\"TKN\":" + tkn + ", " \
+                      + "\"YKN\":" + ykn + "," \
+                      + "\"PAN\":\"" + pan + "\"," \
+                      + "\"GIT\":\"" + git + "\"," \
+                      + "\"KTN\":" + ktn + "," \
+                      + "\"TUR\":\"" + tur + "\"," \
+                      + "\"DTA\":\"" + dta + "\"" \
                       + "}"
 
     # Tüketiciden İade Alma Bildirimi
     # Kurum/firma, daha önce tüketiciye verdiği tekil ürünü geri alması durumunda Tüketiciden İade Alma Bildirimi yapar.
-    def tuketicideniadealmabildir(self, TID, ADT, VKN, UDI, UNO, LNO, SNO):
+    def tuketicideniadealmabildir(self, tid, adt, vkn, udi, uno, lno, sno):
         servicepath = self._servicepath + "/tuketicidenIadeAlma/ekle"
         servicedata = "{" \
-                      + "\"TID\":" + TID + "," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"VKN\":" + VKN + "," \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"" \
+                      + "\"TID\":" + tid + "," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"VKN\":" + vkn + "," \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi ile Tüketiciden İade Alma Bildirimi
-    def essizkimlikbilgisiiletuketicideniadealmabildir(self, UDI, VKN, ADT):
+    def essizkimlikbilgisiiletuketicideniadealmabildir(self, udi, vkn, adt):
         servicepath = self._servicepath + "/tuketicidenIadeAlma/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"VKN\":" + VKN + "," \
-                      + "\"ADT\":" + ADT \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"VKN\":" + vkn + "," \
+                      + "\"ADT\":" + adt \
                       + "}"
 
     # Geçici Kullanıma Verme Bildirimi
     # Kurum/firma, geçici süreliğine bir kişinin kullanımına verdiği tekil ürünler için Geçici Kullanıma Verme Bildirimi
     # yapar.
-    def gecicikullanimavermebildir(self, UNO, LNO, SNO, ADT, TUA, TUS, TKN, YKN, PAN, GIT, KTN, TUR, DTA):
+    def gecicikullanimavermebildir(self, uno, lno, sno, adt, tua, tus, tkn, ykn, pan, git, ktn, tur, dta):
         servicepath = self._servicepath + "/geciciKullanimaVerme/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"TUA\":\"" + TUA + "\"," \
-                      + "\"TUS\":\"" + TUS + "\"," \
-                      + "\"TKN\":" + TKN + "," \
-                      + "\"YKN\":" + YKN + "," \
-                      + "\"PAN\":\"" + PAN + "\"," \
-                      + "\"GIT\":\"" + GIT + "\"," \
-                      + "\"KTN\":" + KTN + "," \
-                      + "\"TUR\":\"" + TUR + "\"," \
-                      + "\"DTA\":\"" + DTA + "\"" \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"TUA\":\"" + tua + "\"," \
+                      + "\"TUS\":\"" + tus + "\"," \
+                      + "\"TKN\":" + tkn + ", " \
+                      + "\"YKN\":" + ykn + "," \
+                      + "\"PAN\":\"" + pan + "\"," \
+                      + "\"GIT\":\"" + git + "\"," \
+                      + "\"KTN\":" + ktn + "," \
+                      + "\"TUR\":\"" + tur + "\"," \
+                      + "\"DTA\":\"" + dta + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle Geçici Kullanıma Verme Bildirimi
-    def essizkimlikbilgisiilegecicikullanimavermebildir(self, UDI, ADT, TUA, TUS, TKN, YKN, PAN, GIT, KTN, TUR, DTA):
+    def essizkimlikbilgisiilegecicikullanimavermebildir(self, udi, adt, tua, tus, tkn, ykn, pan, git, ktn, tur, dta):
         servicepath = self._servicepath + "/tuketiciyeVerme/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"TUA\":\"" + TUA + "\"," \
-                      + "\"TUS\":\"" + TUS + "\"," \
-                      + "\"TKN\":" + TKN + "," \
-                      + "\"YKN\":" + YKN + "," \
-                      + "\"PAN\":\"" + PAN + "\"," \
-                      + "\"GIT\":\"" + GIT + "\"," \
-                      + "\"KTN\":" + KTN + "," \
-                      + "\"TUR\":\"" + TUR + "\"," \
-                      + "\"DTA\":\"" + DTA + "\"" \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"TUA\":\"" + tua + "\"," \
+                      + "\"TUS\":\"" + tus + "\"," \
+                      + "\"TKN\":" + tkn + ", " \
+                      + "\"YKN\":" + ykn + "," \
+                      + "\"PAN\":\"" + pan + "\"," \
+                      + "\"GIT\":\"" + git + "\"," \
+                      + "\"KTN\":" + ktn + "," \
+                      + "\"TUR\":\"" + tur + "\"," \
+                      + "\"DTA\":\"" + dta + "\"" \
                       + "}"
 
     # Kullanımdan Alma Bildirimi
     # Kurum/firma, geçici süreliğine hasta/tüketicinin kullanımına verdiği tekil ürünleri geri aldığında Kullanımdan Alma
     # Bildirimi yapar.
-    def kullanimdanalmabildir(self, GKI, ADT, UDI, UNO, LNO, SNO):
+    def kullanimdanalmabildir(self, gki, adt, udi, uno, lno, sno):
         servicepath = self._servicepath + "/kullanimdanAlma/ekle"
         servicedata = "{" \
-                      + "\"GKI\":" + GKI + "," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"" \
+                      + "\"GKI\":" + gki + "," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi ile Kullanımdan Alma Bildirimi
-    def essizkimlikbilgisiilekullanimdanalmabildir(self, UDI, ADT):
+    def essizkimlikbilgisiilekullanimdanalmabildir(self, udi, adt):
         servicepath = self._servicepath + "/kullanimdanAlma/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt \
                       + "}"
 
     # Yeniden İşleme Bildirimi
     # Kurum/firma ÜTS’de tanımlı tekil ürünü başka bir tekil ürünün üretiminde hammadde olarak kullanması durumunda
     # yeniden işleme bildirimi yapar.
-    def yenidenislemebildir(self, UNO, LNO, SNO, ADT):
+    def yenidenislemebildir(self, uno, lno, sno, adt):
         servicepath = self._servicepath + "/yenidenIsleme/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ADT\":" + ADT \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ADT\":" + adt \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle Yeniden İşleme Bildirimi
-    def essizkimlikbilgisiileyenidenislemebildir(self, UDI, ADT):
+    def essizkimlikbilgisiileyenidenislemebildir(self, udi, adt):
         servicepath = self._servicepath + "/yenidenIsleme/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt \
                       + "}"
 
     # İhracat Bildirimi
     # İhracatçı, ihraç ettiği tekil ürünler için İhracat Bildirimi yapar.
-    def ihracatbildir(self, UNO, LNO, SNO, ADT, BEN, GBN):
+    def ihracatbildir(self, uno, lno, sno, adt, ben, gbn):
         servicepath = self._servicepath + "/ihracat/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"BEN\":\"" + BEN + "\"," \
-                      + "\"GBN\":\"" + GBN + "\"" \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"BEN\":\"" + ben + "\"," \
+                      + "\"GBN\":\"" + gbn + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle İhracat Bildirimi
-    def essizkimlikbilgisiileyihracatbildir(self, UDI, ADT, BEN, GBN):
+    def essizkimlikbilgisiileyihracatbildir(self, udi, adt, ben, gbn):
         servicepath = self._servicepath + "/ihracat/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"BEN\":\"" + BEN + "\"," \
-                      + "\"GBN\":\"" + GBN + "\"" \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"BEN\":\"" + ben + "\"," \
+                      + "\"GBN\":\"" + gbn + "\"" \
                       + "}"
 
     # Mahrecine İade Etme Bildirimi
     # İthalatçı, ithal ettiği tekil ürünü iade ettiğinde Mahrecine İade Bildirimi yapar.
-    def mahrecineiadeetmebildir(self, UNO, LNO, SNO, ADT, GBN):
+    def mahrecineiadeetmebildir(self, uno, lno, sno, adt, gbn):
         servicepath = self._servicepath + "/mahrecineIadeEtme/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"GBN\":\"" + GBN + "\"" \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"GBN\":\"" + gbn + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle Mahrecine İade Etme Bildirimi
-    def essizkimlikbilgisiilemahrecineiadeetmebildir(self, UDI, ADT, GBN):
+    def essizkimlikbilgisiilemahrecineiadeetmebildir(self, udi, adt, gbn):
         servicepath = self._servicepath + "/mahrecineIadeEtme/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"GBN\":\"" + GBN + "\"" \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"GBN\":\"" + gbn + "\"" \
                       + "}"
 
     # HEK / Zayiat Bildirimi
     # Kurum/firma, ekonomik ömrünü tamamlayan veya zayi olan tekil ürünleri için HEK / Zayiat bildirimi yapar. HEK
     # ifadesi Hurda / Enkaz / Köhne kelimelerinin kısaltmasıdır.
-    def hekzayiatbildir(self, UNO, LNO, SNO, ADT, TUR, DTA):
+    def hekzayiatbildir(self, uno, lno, sno, adt, tur, dta):
         servicepath = self._servicepath + "/hekZayiat/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"TUR\":\"" + TUR + "\"," \
-                      + "\"DTA\":\"" + DTA + "\"" \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"TUR\":\"" + tur + "\"," \
+                      + "\"DTA\":\"" + dta + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle HEK / Zayiat Bildirimi
-    def essizkimlikbilgisiilehekzayiatbildir(self, UDI, ADT, TUR, DTA):
+    def essizkimlikbilgisiilehekzayiatbildir(self, udi, adt, tur, dta):
         servicepath = self._servicepath + "/hekZayiat/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"TUR\":\"" + TUR + "\"," \
-                      + "\"DTA\":\"" + DTA + "\"" \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"TUR\":\"" + tur + "\"," \
+                      + "\"DTA\":\"" + dta + "\"" \
                       + "}"
 
     # Geri Çekme Verme Bildirimi
     # Kurum/firma, geri çekme kapsamındaki tekil ürünleri başka bir kurum/firmaya verdiğinde Geri Çekme Verme
     # Bildirimi yapar.
-    def gericekmevermebildir(self, UNO, LNO, SNO, ADT, KUN, BNO):
+    def gericekmevermebildir(self, uno, lno, sno, adt, kun, bno):
         servicepath = self._servicepath + "/geriCekmeVerme/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"KUN\":" + KUN + "," \
-                      + "\"BNO\":\"" + BNO + "\"" \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"KUN\":" + kun + "," \
+                      + "\"BNO\":\"" + bno + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle Geri Çekme Verme Bildirimi
-    def essizkimlikbilgisiilegericekmevermebildir(self, UDI, ADT, KUN, BNO):
+    def essizkimlikbilgisiilegericekmevermebildir(self, udi, adt, kun, bno):
         servicepath = self._servicepath + "/geriCekmeVerme/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"KUN\":" + KUN + "," \
-                      + "\"BNO\":\"" + BNO + "\"" \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"KUN\":" + kun + "," \
+                      + "\"BNO\":\"" + bno + "\"" \
                       + "}"
 
     # Geri Çekme Alma Bildirimi
     # Kurum/firma, geri çekme kapsamında kendisine verilen tekil ürünleri kabul etmek için Geri Çekme Alma Bildirimi
     # yapar.
-    def gericekmealmabildir(self, GVI, ADT, GKK, UDI, UNO, LNO, SNO):
+    def gericekmealmabildir(self, gvi, adt, gkk, udi, uno, lno, sno):
         servicepath = self._servicepath + "/geriCekmeAlma/ekle"
         servicedata = "{" \
-                      + "\"GVI\":\"" + GVI + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"GKK\":" + GKK + "," \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"" \
+                      + "\"GVI\":\"" + gvi + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"GKK\":" + gkk + "," \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi ile Geri Çekme Alma Bildirimi
-    def essizkimlikbilgisiilegericekmealmabildir(self, UDI, ADT, GKK):
+    def essizkimlikbilgisiilegericekmealmabildir(self, udi, adt, gkk):
         servicepath = self._servicepath + "/geriCekmeAlma/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"GKK\":" + GKK \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"GKK\":" + gkk \
                       + "}"
 
     # Islah / Düzeltici Faaliyet Bildirimi
     # Kurum/firma, uygunsuz veya teknik düzenlemeye aykırı olduğu için geri çekilen tekil ürünlerdeki gerekli
     # düzenlemeyi yaptığında Islah Bildirimi yapar.
-    def islahduzelticifaaliyetbildir(self, UNO, LNO, SNO, ADT, KUN):
+    def islahduzelticifaaliyetbildir(self, uno, lno, sno, adt, kun):
         servicepath = self._servicepath + "/islahDuzelticiFaaliyet/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"KUN\":" + KUN \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"KUN\":" + kun \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle Islah / Düzeltici Faaliyet Bildirimi
-    def essizkimlikbilgisiileislahduzelticifaaliyetbildir(self, UDI, ADT, KUN):
+    def essizkimlikbilgisiileislahduzelticifaaliyetbildir(self, udi, adt, kun):
         servicepath = self._servicepath + "/islahDuzelticiFaaliyet/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"KUN\":" + KUN \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"KUN\":" + kun \
                       + "}"
 
     # İmha / Bertaraf Bildirimi
     # Kurum/firma, tekil ürünleri herhangi bir gerekçeyle imha ettiğinde İmha / Bertaraf Bildirimi yapar.
-    def imhabertarafbildir(self, UNO, LNO, SNO, ADT, GRK, DGA, BNO):
+    def imhabertarafbildir(self, uno, lno, sno, adt, grk, dga, bno):
         servicepath = self._servicepath + "/geriCekmeVerme/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"GRK\":" + GRK + "," \
-                      + "\"DGA\":" + DGA + "," \
-                      + "\"BNO\":\"" + BNO + "\"" \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"GRK\":" + grk + "," \
+                      + "\"DGA\":" + dga + "," \
+                      + "\"BNO\":\"" + bno + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle İmha / Bertaraf Bildirimi
-    def essizkimlikbilgisiileimhabertarafbildir(self, UDI, ADT, GRK, DGA, BNO):
+    def essizkimlikbilgisiileimhabertarafbildir(self, udi, adt, grk, dga, bno):
         servicepath = self._servicepath + "/imhaBertaraf/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"GRK\":" + GRK + "," \
-                      + "\"DGA\":" + DGA + "," \
-                      + "\"BNO\":\"" + BNO + "\"" \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"GRK\":" + grk + "," \
+                      + "\"DGA\":" + dga + "," \
+                      + "\"BNO\":\"" + bno + "\"" \
                       + "}"
 
     # Hastanın Vücudundan Çıkarma Bildirimi
     # Hakkında geri çekme kararı olan, miadı dolmuş veya görevini tamamlamış tıbbi cihazların tüketiciden geri alınması
     # durumunda Hastadan Geri Toplatma Bildirimi yapılır.
-    def hastaninvucudundancikarmabildir(self, UNO, LNO, SNO, HAA, HAS, TKN, YKN, PAN, GRK, DGA, GIT, KTN, TUR, DTA):
+    def hastaninvucudundancikarmabildir(self, uno, lno, sno, haa, has, tkn, ykn, pan, grk, dga, git, ktn, tur, dta):
         servicepath = self._servicepath + "/hastaninVucudundanCikarma/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"HAA\":\"" + HAA + "\"," \
-                      + "\"HAS\":\"" + HAS + "\"," \
-                      + "\"TKN\":" + TKN + "," \
-                      + "\"YKN\":" + YKN + "," \
-                      + "\"PAN\":\"" + PAN + "\"," \
-                      + "\"GRK\":" + GRK + "," \
-                      + "\"DGA\":" + DGA + "," \
-                      + "\"GIT\":\"" + GIT + "\"," \
-                      + "\"KTN\":" + KTN + "," \
-                      + "\"TUR\":\"" + TUR + "\"," \
-                      + "\"DTA\":\"" + DTA + "\"" \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"HAA\":\"" + haa + "\"," \
+                      + "\"HAS\":\"" + has + "\"," \
+                      + "\"TKN\":" + tkn + ", " \
+                      + "\"YKN\":" + ykn + "," \
+                      + "\"PAN\":\"" + pan + "\"," \
+                      + "\"GRK\":" + grk + "," \
+                      + "\"DGA\":" + dga + "," \
+                      + "\"GIT\":\"" + git + "\"," \
+                      + "\"KTN\":" + ktn + "," \
+                      + "\"TUR\":\"" + tur + "\"," \
+                      + "\"DTA\":\"" + dta + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle Hastanın Vücudundan Çıkarma Bildirimi
-    def essizkimlikbilgisiilehastaninvucudundancikarmabildir(self, UDI, HAA, HAS, TKN, YKN, PAN, GRK, DGA, GIT, KTN,
-                                                             TUR, DTA):
+    def essizkimlikbilgisiilehastaninvucudundancikarmabildir(self, udi, haa, has, tkn, ykn, pan, grk, dga, git, ktn,
+                                                             tur, dta):
         servicepath = self._servicepath + "/hastaninVucudundanCikarma/ekle/essizKimlik"
         servicedata = "{" \
-                      + "\"UDI\":\"" + UDI + "\"," \
-                      + "\"HAA\":\"" + HAA + "\"," \
-                      + "\"HAS\":\"" + HAS + "\"," \
-                      + "\"TKN\":" + TKN + "," \
-                      + "\"YKN\":" + YKN + "," \
-                      + "\"PAN\":\"" + PAN + "\"," \
-                      + "\"GRK\":" + GRK + "," \
-                      + "\"DGA\":" + DGA + "," \
-                      + "\"GIT\":\"" + GIT + "\"," \
-                      + "\"KTN\":" + KTN + "," \
-                      + "\"TUR\":\"" + TUR + "\"," \
-                      + "\"DTA\":\"" + DTA + "\"" \
+                      + "\"UDI\":\"" + udi + "\"," \
+                      + "\"HAA\":\"" + haa + "\"," \
+                      + "\"HAS\":\"" + has + "\"," \
+                      + "\"TKN\":" + tkn + ", " \
+                      + "\"YKN\":" + ykn + "," \
+                      + "\"PAN\":\"" + pan + "\"," \
+                      + "\"GRK\":" + grk + "," \
+                      + "\"DGA\":" + dga + "," \
+                      + "\"GIT\":\"" + git + "\"," \
+                      + "\"KTN\":" + ktn + "," \
+                      + "\"TUR\":\"" + tur + "\"," \
+                      + "\"DTA\":\"" + dta + "\"" \
                       + "}"
 
     # Envanter Bildirimi
     # Sağlık hizmet sunucuları, envantere almak istediği ürünler için bir Envanter Bildirimi yapar.
-    def envanterbildir(self, UIK, UNO, LNO, SNO, ENT, SKT, SBT):
+    def envanterbildir(self, uik, uno, lno, sno, ent, skt, sbt):
         servicepath = self._servicepath + "/envanter/ekle"
         servicedata = "{" \
-                      + "\"UIK\":" + UIK + "," \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ENT\":\"" + ENT + "\"," \
-                      + "\"SKT\":\"" + SKT + "\"," \
-                      + "\"SBT\":\"" + SBT + "\"" \
+                      + "\"UIK\":" + uik + "," \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ENT\":\"" + ent + "\"," \
+                      + "\"SKT\":\"" + skt + "\"," \
+                      + "\"SBT\":\"" + sbt + "\"" \
                       + "}"
 
     # Stok Bildirimi
     # Sağlık hizmet sunucuları dışındaki kurumlar, stok yapmak istediği ürünler için Stok Bildirimi yapar.
-    def stokbildir(self, UIK, UNO, LNO, SNO, ADT, URT, SKT):
+    def stokbildir(self, uik, uno, lno, sno, adt, urt, skt):
         servicepath = self._servicepath + "/stok/ekle"
         servicedata = "{" \
-                      + "\"UIK\":" + UIK + "," \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ADT\":" + ADT + "," \
-                      + "\"URT\":\"" + URT + "\"," \
-                      + "\"SKT\":\"" + SKT + "\"" \
+                      + "\"UIK\":" + uik + "," \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ADT\":" + adt + "," \
+                      + "\"URT\":\"" + urt + "\"," \
+                      + "\"SKT\":\"" + skt + "\"" \
                       + "}"
 
     # Eczane Stok Bildirimi
     # Eczaneler, stok bildirmek istediği tekil ürünler için Eczane Stok Bildirimi yapar. Eczane sadece İnsülin Kalem İğne
     # Ucu ve Şeker Ölçüm Çubuğu branş türündeki ürünler için stok bildirimi yapabilir.
-    def eczanestokbildir(self, UIK, UNO, LNO, SNO, ADT):
+    def eczanestokbildir(self, uik, uno, lno, sno, adt):
         servicepath = self._servicepath + "/eczane/stok/ekle"
         servicedata = "{" \
-                      + "\"UIK\":" + UIK + "," \
-                      + "\"UNO\":\"" + UNO + "\"," \
-                      + "\"LNO\":\"" + LNO + "\"," \
-                      + "\"SNO\":\"" + SNO + "\"," \
-                      + "\"ADT\":" + ADT \
+                      + "\"UIK\":" + uik + "," \
+                      + "\"UNO\":\"" + uno + "\"," \
+                      + "\"LNO\":\"" + lno + "\"," \
+                      + "\"SNO\":\"" + sno + "\"," \
+                      + "\"ADT\":" + adt \
                       + "}"
