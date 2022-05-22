@@ -91,6 +91,7 @@ def get_urun_by_uno(uno):
 
 @frappe.whitelist()
 def get_tekilurun_by_batch(batch):
+    object_name = "Tekil Ürün"
     b = frappe.get_doc("Batch", batch)
     i = frappe.get_doc("Item", b.item)
     l: list = frappe.get_all(
@@ -104,13 +105,16 @@ def get_tekilurun_by_batch(batch):
         fields={
             "barcode"
         })
-    object_name = "Tekil Ürün"
+
     q = InquiringService()
     d: dict = q.tekilurunsorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
     try:
         individual: dict = d.get("SNC")[0]
     except IndexError:
-        return ""
+        frappe.throw(
+            title='Hata',
+            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        )
     if len(individual) == 0:
         return ""
     for children in frappe.get_all(
