@@ -260,7 +260,7 @@ def get_askidakitekilurun_by_batch(batch, vendor_batch):
 def get_all_incomingnotificationsdeclined():
     object_name = "Almak İstemediğim Verme Bildirimleri"
     q = InquiringService()
-    d: dict = q.alinmakistenmeyenvermebildirimlerimsorgula()
+    d: dict = q.almakistemedigimvermebildirimlerisorgula()
 
     notifications = d.get("SNC").get("LST")
     if len(notifications) == 0:
@@ -272,7 +272,7 @@ def get_all_incomingnotificationsdeclined():
         for key in notification.keys():
             lowerdict: dict = dict()
             lowerdict[key.lower()] = notification.get(key)
-            lowerdict.doctype = 'TR UTS Incoming Notifications Declined'
+            lowerdict['doctype'] = 'TR UTS Incoming Notifications Declined'
             # create a new document
             doc = frappe.get_doc(lowerdict)
             doc.insert()

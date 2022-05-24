@@ -168,7 +168,7 @@ class InquiringService:
     # Almak İstemediğim Verme Bildirimlerini Sorgula
     # Firma almak istemiyorum olarak işaretlediği verme bildirimlerini sorgular. Dilerse Almak İstiyorum Olarak İşaretle
     # servisini kullanarak bildirimi bu listeden çıkarabilir.
-    def almakistemedigimvermebildirimlerimsorgula(self, adt=0, off=""):
+    def almakistemedigimvermebildirimlerisorgula(self, adt=0, off=""):
         parametercheck = False
         servicedata = "{"
         if adt != 0:
