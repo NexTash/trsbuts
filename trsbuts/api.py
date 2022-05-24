@@ -261,7 +261,7 @@ def get_all_incomingnotificationsdeclined():
     object_name = "Almak İstemediğim Verme Bildirimleri"
     q = InquiringService()
     d: dict = q.alinmakistenmeyenvermebildirimlerimsorgula()
-    notifications: dict = dict()
+
     notifications = d.get("SNC").get("LST")
     if len(notifications) == 0:
         frappe.throw(
