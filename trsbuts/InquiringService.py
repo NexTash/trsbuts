@@ -184,3 +184,36 @@ class InquiringService:
             self._servicepath + "/almakIstemiyorum/sorgula/almakIstemedigimVermeBildirimlerim",
             servicedata + "}"
         )
+
+    # Bildirim Sorgula
+    # Kurum/firmanın yapmış olduğu bildirimleri sorgular.
+    def bildirimsorgula(self, uno="", lno="", sno="", san=1):
+        parametercheck = False
+        servicedata = "{"
+        if uno != "":
+            servicedata = servicedata + "\"UNO\":\"" + uno + "\""
+            parametercheck = True
+        if lno != "":
+            if parametercheck:
+                servicedata = servicedata + ","
+            servicedata = servicedata + "\"LNO\":\"" + lno + "\""
+            parametercheck = True
+        if sno != "":
+            if parametercheck:
+                servicedata = servicedata + ","
+            servicedata = servicedata + "\"SNO\":\"" + sno + "\","
+            parametercheck = True
+        if san != 1:
+            if parametercheck:
+                servicedata = servicedata + ","
+            servicedata = servicedata + "\"SAN\":" + str(san)
+            parametercheck = True
+
+        if parametercheck:
+            c: UTSConnection = UTSConnection()
+            return c.connect(
+                self._servicepath + "/bildirim/sorgula",
+                servicedata + "}"
+            )
+        else:
+            return ""

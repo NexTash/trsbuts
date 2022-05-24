@@ -257,6 +257,62 @@ def get_askidakitekilurun_by_batch(batch, vendor_batch):
 
 
 @frappe.whitelist()
+def get_bildirim_by_batch(batch, vendor_batch):
+    object_name = "Bildirim"
+    b = frappe.get_doc("Batch", batch)
+    i = frappe.get_doc("Item", b.item)
+    l: list = frappe.get_all(
+        i.get_table_field_doctype("barcodes"),
+        filters={
+            'parent': b.item,
+            'parentfield': 'barcodes',
+            'parenttype': 'Item',
+            'barcode_type': 'EAN'
+        },
+        fields={
+            "barcode"
+        })
+    if len(l) == 0:
+        frappe.throw(
+            title='Hata',
+            msg='Sisteminizde Birincil Ürün Numarası kayıtlı değildir.'
+        )
+    q = InquiringService()
+    if b.vendor_batch == "":
+        b.vendor_batch = vendor_batch
+    d: dict = q.bildirimsorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
+    individuals: dict = dict()
+    try:
+        individuals = d.get("SNC")
+    except IndexError:
+        frappe.throw(
+            title='Hata',
+            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        )
+    if len(individuals) == 0:
+        return ""
+    for children in frappe.get_all(
+            b.get_table_field_doctype("notification"),
+            filters={
+                'parent': b.name,
+                'parentfield': 'notification',
+                'parenttype': 'Batch'
+            }):
+        frappe.delete_doc(
+            b.get_table_field_doctype("notification"),
+            children.name,
+            delete_permanently=True)
+    lowerdict: dict = dict()
+    for individual in individuals:
+        for key in individual.keys():
+            lowerdict[key.lower()] = individual.get(key)
+
+        b.append("notification", lowerdict)
+    b.save()
+    return ""
+
+
+@frappe.whitelist()
 def get_all_declineddeliverynotifications():
     object_name = "Alınmak İstenmeyen Verme Bildirimlerim"
     q = InquiringService()

@@ -31,19 +31,16 @@
   {
    "fieldname": "uno",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "\u00dcr\u00fcn Numaras\u0131"
   },
   {
    "fieldname": "lno",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Lot/Batch Numaras\u0131"
   },
   {
    "fieldname": "sno",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Seri/S\u0131ra Numaras\u0131"
   },
   {
@@ -141,26 +138,14 @@
   }
  ],
  "index_web_pages_for_search": 1,
+ "istable": 1,
  "links": [],
- "modified": "2022-05-22 17:28:02.578290",
+ "modified": "2022-05-24 05:30:59.284815",
  "modified_by": "Administrator",
  "module": "Trsbuts",
  "name": "TR UTS Notification",
  "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  }
- ],
+ "permissions": [],
  "sort_field": "modified",
  "sort_order": "DESC"
 }
