@@ -269,10 +269,9 @@ def get_all_declineddeliverynotifications():
             msg=object_name + ' ÜTS\'de kayıtlı değildir.'
         )
     for notification in notifications:
-        lowerdict: dict = dict()
+        lowerdict: dict = dict(doctype='TR UTS Declined Delivery Notification')
         for key in notification.keys():
             lowerdict[key.lower()] = notification.get(key)
-        lowerdict['doctype'] = 'TR UTS Declined Delivery Notification'
         # create a new document
         doc = frappe.get_doc(lowerdict)
         doc.insert()
@@ -292,10 +291,9 @@ def get_all_incomingnotificationsdeclined():
             msg=object_name + ' ÜTS\'de kayıtlı değildir.'
         )
     for notification in notifications:
-        lowerdict: dict = dict()
+        lowerdict: dict = dict(doctype='TR UTS Incoming Notifications Declined')
         for key in notification.keys():
             lowerdict[key.lower()] = notification.get(key)
-        lowerdict['doctype'] = 'TR UTS Incoming Notifications Declined'
         # create a new document
         doc = frappe.get_doc(lowerdict)
         doc.insert()
