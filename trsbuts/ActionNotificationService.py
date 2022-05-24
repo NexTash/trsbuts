@@ -4,19 +4,22 @@ import trsbuts.UTSConnection as UTSConnection
 class ActionNotificationService:
     def __init__(self):
         self._utsconnection = UTSConnection()
-        self._servicepath = self._servicepath + ""
+        self._servicepath = "/UTS/uh/rest"
 
     # Üretim Bildirimi
     # Üretici, ürettiği tekil ürünlerin her biri için bir Üretim Bildirimi yapar.
-    def uretimbildir(self, uno, lno, sno, urt, skt, adt, udi, sip, kus, gtk):
+    def uretim_ekle(self, uno: str, urt: str, lno="", sno="", skt="", adt=1, udi="", sip="", kus="", gtk=""):
         servicepath = self._servicepath + "/uretim/ekle"
         servicedata = "{" \
                       + "\"UNO\":\"" + uno + "\"" \
+                      + ",\"URT\":\"" + urt + "\""
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + ",\"LNO\":\"" + lno + "\"" \
-                      + ",\"SNO\":\"" + sno + "\"" \
-                      + ",\"URT\":\"" + urt + "\"" \
                       + ",\"SKT\":\"" + skt + "\"" \
-                      + ",\"ADT\":" + adt + "," \
                       + ",\"UDI\":\"" + udi + "\"" \
                       + ",\"SIP\":\"" + sip + "\"" \
                       + ",\"KUS\":\"" + kus + "\"" \
@@ -25,19 +28,23 @@ class ActionNotificationService:
 
     # İthalat Bildirimi
     # İthalatçı, ithal ettiği tekil ürünler için İthalat Bildirimi yapar.
-    def ithalatbildir(self, uno, lno, sno, urt, skt, itt, adt, udi, ieu, meu, gbn, sip, kus, gtk):
+    def ithalat_ekle(self, uno: str, urt: str, ieu: str, meu: str, lno="", sno="", skt="", itt="", adt=1, udi="",
+                     gbn="", sip="", kus="", gtk=""):
         servicepath = self._servicepath + "/ithalat/ekle"
         servicedata = "{" \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
                       + "\"URT\":\"" + urt + "\"," \
+                      + "\"IEU\":" + ieu + "," \
+                      + "\"MEU\":" + meu + ","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
+                      + "\"LNO\":\"" + lno + "\"," \
                       + "\"SKT\":\"" + skt + "\"," \
                       + "\"ITT\":\"" + itt + "\"," \
-                      + "\"ADT\":" + adt + "," \
                       + "\"UDI\":\"" + udi + "\"," \
-                      + "\"IEU\":" + ieu + "," \
-                      + "\"MEU\":" + meu + "," \
                       + "\"GBN\":\"" + gbn + "\"," \
                       + "\"SIP\":\"" + sip + "\"," \
                       + "\"KUS\":\"" + kus + "\"," \
@@ -45,22 +52,30 @@ class ActionNotificationService:
                       + "}"
 
     # Yetkili Bayi İle İthalat Bildirimi
-    # İthalatçı tarafından yetki verilen bayi ithalat bildirimi yapabilmektedir. Bunun için bayinin ithalat yapmak istediği
-    # ürüne ait ithalatçı tarafından girilmiş olan yetkili distribütörlük belgesi olmalıdır.
-    def yetkilibayiileithalatbildir(self, uik, uno, lno, sno, urt, skt, itt, adt, udi, ieu, meu, gbn, sip, kus, gtk):
+    # İthalatçı tarafından yetki verilen bayi ithalat bildirimi yapabilmektedir.
+    # Bunun için bayinin ithalat yapmak istediği ürüne ait ithalatçı tarafından girilmiş olan yetkili distribütörlük
+    # belgesi olmalıdır.
+    def ithalat_yetkilibayiile_ekle(self, uik: str, uno: str, urt: str, ieu: str, meu: str, lno="", sno="", skt="",
+                                    itt="", adt=1, udi="", gbn="", sip="", kus="",
+                                    gtk=""):
         servicepath = self._servicepath + "/ithalat/yetkiliBayiIle/ekle"
         servicedata = "{" \
                       + "\"UIK\":" + uik + "," \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
                       + "\"URT\":\"" + urt + "\"," \
+                      + "\"IEU\":" + ieu + "," \
+                      + "\"MEU\":" + meu + ","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        if str.strip(udi) != "":
+            servicepath = servicepath + "/essizKimlik"
+            servicedata = servicedata + "\"UDI\":\"" + udi + "\","
+        servicedata = servicedata + \
+                      + "\"LNO\":\"" + lno + "\"," \
                       + "\"SKT\":\"" + skt + "\"," \
                       + "\"ITT\":\"" + itt + "\"," \
-                      + "\"ADT\":" + adt + "," \
-                      + "\"UDI\":\"" + udi + "\"," \
-                      + "\"IEU\":" + ieu + "," \
-                      + "\"MEU\":" + meu + "," \
                       + "\"GBN\":\"" + gbn + "\"," \
                       + "\"SIP\":\"" + sip + "\"," \
                       + "\"KUS\":\"" + kus + "\"," \
@@ -70,22 +85,25 @@ class ActionNotificationService:
     # Verme Bildirimi
     # Kurum/firma kullanıcısı sahip olduğu tekil ürünlerini başka bir kurum/firmaya verdiğinde Verme Bildirimi yapar.
     # Satış, hibe, iade vb. yöntemler için Verme Bildirimi yapılır.
-    def vermebildir(self, uno, lno, sno, adt, kun, ben, bno, git):
+    def verme_ekle(self, uno: str, kun: str, bno: str, lno="", sno="", adt=1, ben="", git=""):
         servicepath = self._servicepath + "/verme/ekle"
         servicedata = "{" \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
-                      + "\"ADT\":" + adt + "," \
                       + "\"KUN\":" + kun + "," \
+                      + "\"BNO\":\"" + bno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
+                      + "\"LNO\":\"" + lno + "\"," \
                       + "\"BEN\":\"" + ben + "\"," \
-                      + "\"BNO\":\"" + bno + "\"," \
                       + "\"GIT\":\"" + git + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle Verme Bildirimi
-    def essizkimlikbilgisiilevermebildir(self, udi, adt, kun, bno):
-        sservicepath = self._servicepath + "/verme/ekle/essizKimlik"
+    def verme_ekle_essizkimlik(self, udi, adt, kun, bno):
+        servicepath = self._servicepath + "/verme/ekle/essizKimlik"
         servicedata = "{" \
                       + "\"UDI\":\"" + udi + "\"," \
                       + "\"ADT\":" + adt + "," \
@@ -94,22 +112,25 @@ class ActionNotificationService:
                       + "}"
 
     # Alma Bildirimi
-    # Kurum/firma kendisine verilen tekil ürünleri kabul etmek için Alma Bildirimi yapar. Bu bildirimle beraber tekil ürünün
-    # sahipliği alıcı tarafa geçmiş olur.
-    def almabildir(self, vbi, adt, gkk, udi, uno, lno, sno):
+    # Kurum/firma kendisine verilen tekil ürünleri kabul etmek için Alma Bildirimi yapar. Bu
+    # bildirimle beraber tekil ürünün sahipliği alıcı tarafa geçmiş olur.
+    def alma_ekle(self, vbi, adt, gkk, udi, uno, lno, sno):
         servicepath = self._servicepath + "/alma/ekle"
         servicedata = "{" \
                       + "\"VBI\":" + vbi + "," \
-                      + "\"ADT\":" + adt + "," \
                       + "\"GKK\":" + gkk + "," \
                       + "\"UDI\":\"" + udi + "\"," \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"" \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle Alma Bildirimi
-    def essizkimlikbilgisiilealmabildir(self, udi, adt, gkk):
+    def alma_ekle_essizkimlik(self, udi, adt, gkk):
         servicepath = self._servicepath + "/alma/ekle/essizKimlik"
         servicedata = "{" \
                       + "\"UDI\":\"" + udi + "\"," \
@@ -119,20 +140,23 @@ class ActionNotificationService:
 
     # ÜTS’de Tanımsız Yere Verme Bildirimi
     # Kurum/firma ÜTS'de tanımlı olmayan bir firmaya tekil ürün verdiğinde ÜTS’de Tanımsız Yere Verme Bildirimi yapar.
-    def utsdetanimsizyerevermebildir(self, uno, lno, sno, adt, ben, vkn, bno):
+    def utsdetanimsizyereverme_ekle(self, uno, lno, sno, adt, ben, vkn, bno):
         servicepath = self._servicepath + "/utsdeTanimsizYereVerme/ekle"
         servicedata = "{" \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
-                      + "\"ADT\":" + adt + "," \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "\"BEN\":\"" + ben + "\"," \
                       + "\"VKN\":" + vkn + "," \
                       + "\"BNO\":\"" + bno + "\"" \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle ÜTS’de Tanımsız Yere Verme Bildirimi
-    def essizkimlikbilgisiileutsdetanimsizyerevermebildir(self, udi, adt, ben, vkn, men, tkn, mek, odk, bno):
+    def utsdetanimsizyereverme_ekle_essizkimlik(self, udi, adt, ben, vkn, men, tkn, mek, odk, bno):
         servicepath = self._servicepath + "/utsdeTanimsizYereVerme/ekle/essizKimlik"
         servicedata = "{" \
                       + "\"UDI\":\"" + udi + "\"," \
@@ -149,19 +173,22 @@ class ActionNotificationService:
     # ÜTS’de Tanımsız Yerden İade Alma Bildirimi
     # Kurum/firma ÜTS'de tanımlı olmayan bir firmaya verdiği tekil ürünlerini iade aldığında ÜTS’de Tanımsız Yerden
     # İade Alma Bildirimi yapar.
-    def utsdetanimsizyerdeniadealmabildir(self, uti, adt, udi, uno, lno, sno):
+    def utsdetanimsizyerdeniadealma_ekle(self, uti, adt, udi, uno, lno, sno):
         servicepath = self._servicepath + "/utsdeTanimsizYerdenIadeAlma/ekle"
         servicedata = "{" \
                       + "\"UTI\":" + uti + "," \
-                      + "\"ADT\":" + adt + "," \
                       + "\"UDI\":\"" + udi + "\"," \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"" \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi ile ÜTS’de Tanımsız Yerden İade Alma Bildirimi
-    def essizkimlikbilgisiileutsdetanimsizyerdeniadealmabildir(self, udi, adt):
+    def utsdetanimsizyerdeniadealma_ekle_essizkimlik(self, udi, adt):
         servicepath = self._servicepath + "/utsdeTanimsizYerdenIadeAlma/ekle"
         servicedata = "{" \
                       + "\"UDI\":" + udi + "," \
@@ -170,13 +197,16 @@ class ActionNotificationService:
 
     # Kullanım Bildirimi
     # Sağlık kuruluşu/uygulama tesisi tekil ürünü hasta/tüketiciye kullandığında Kullanım Bildirimi yapar.
-    def kullanimbildir(self, uno, lno, sno, adt, haa, has, tkn, ykn, pan, git, ktn, tur, dta):
+    def kullanim_ekle(self, uno, lno, sno, adt, haa, has, tkn, ykn, pan, git, ktn, tur, dta):
         servicepath = self._servicepath + "/kullanim/ekle"
         servicedata = "{" \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
-                      + "\"ADT\":" + adt + "," \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "\"HAA\":\"" + haa + "\"," \
                       + "\"HAS\":\"" + has + "\"," \
                       + "\"TKN\":" + tkn + "," \
@@ -189,7 +219,7 @@ class ActionNotificationService:
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle Kullanım Bildirimi
-    def essizkimlikbilgisiilekullanimbildir(self, udi, adt, haa, has, tkn, ykn, pan, git, ktn, tur, dta):
+    def kullanim_ekle_essizkimlik(self, udi, adt, haa, has, tkn, ykn, pan, git, ktn, tur, dta):
         servicepath = self._servicepath + "/kullanim/ekle/essizKimlik"
         servicedata = "{" \
                       + "\"UDI\":\"" + udi + "\"," \
@@ -208,13 +238,16 @@ class ActionNotificationService:
     # Tüketiciye Verme Bildirimi
     # Satış yeri, tüketiciye verdiği tekil ürünler için tüketiciye verme bildirimi yapar. Satış, hibe vb. yöntemler için
     # Tüketiciye Verme Bildirimi yapılır.
-    def tuketiciyevermebildir(self, uno, lno, sno, adt, ben, tua, tus, tkn, ykn, pan, git, ktn, tur, dta):
+    def tuketiciyeverme_ekle(self, uno, lno, sno, adt, ben, tua, tus, tkn, ykn, pan, git, ktn, tur, dta):
         servicepath = self._servicepath + "/tuketiciyeVerme/ekle"
         servicedata = "{" \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
-                      + "\"ADT\":" + adt + "," \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "\"BEN\":\"" + ben + "\"," \
                       + "\"TUA\":\"" + tua + "\"," \
                       + "\"TUS\":\"" + tus + "\"," \
@@ -228,7 +261,7 @@ class ActionNotificationService:
                       + "}"
 
     # Eşsiz Kimlik Bilgisi İle Tüketiciye Verme Bildirimi
-    def essizkimlikbilgisiiletuketiciyevermebildir(self, udi, adt, ben, tua, tus, tkn, ykn, pan, git, ktn, tur, dta):
+    def tuketiciyeverme_ekle_essizkimlik(self, udi, adt, ben, tua, tus, tkn, ykn, pan, git, ktn, tur, dta):
         servicepath = self._servicepath + "/tuketiciyeVerme/ekle/essizKimlik"
         servicedata = "{" \
                       + "\"UDI\":\"" + udi + "\"," \
@@ -247,20 +280,23 @@ class ActionNotificationService:
 
     # Tüketiciden İade Alma Bildirimi
     # Kurum/firma, daha önce tüketiciye verdiği tekil ürünü geri alması durumunda Tüketiciden İade Alma Bildirimi yapar.
-    def tuketicideniadealmabildir(self, tid, adt, vkn, udi, uno, lno, sno):
+    def tuketicideniadealma_ekle(self, tid, adt, vkn, udi, uno, lno, sno):
         servicepath = self._servicepath + "/tuketicidenIadeAlma/ekle"
         servicedata = "{" \
                       + "\"TID\":" + tid + "," \
-                      + "\"ADT\":" + adt + "," \
                       + "\"VKN\":" + vkn + "," \
                       + "\"UDI\":\"" + udi + "\"," \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"" \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi ile Tüketiciden İade Alma Bildirimi
-    def essizkimlikbilgisiiletuketicideniadealmabildir(self, udi, vkn, adt):
+    def tuketicideniadealma_ekle_essizkimlik(self, udi, vkn, adt):
         servicepath = self._servicepath + "/tuketicidenIadeAlma/ekle/essizKimlik"
         servicedata = "{" \
                       + "\"UDI\":\"" + udi + "\"," \
@@ -268,33 +304,22 @@ class ActionNotificationService:
                       + "\"ADT\":" + adt \
                       + "}"
 
-    # Geçici Kullanıma Verme Bildirimi
+    # Geçici Kullanıma Verme Bildirimi/Eşsiz Kimlik Bilgisi İle Geçici Kullanıma Verme Bildirimi
     # Kurum/firma, geçici süreliğine bir kişinin kullanımına verdiği tekil ürünler için Geçici Kullanıma Verme Bildirimi
     # yapar.
-    def gecicikullanimavermebildir(self, uno, lno, sno, adt, tua, tus, tkn, ykn, pan, git, ktn, tur, dta):
+    def gecicikullanimaverme_bildir(self, uno="", lno="", sno="", udi="", adt=1, tua="", tus="", tkn="", ykn="",
+                                    pan="",
+                                    git="", ktn="", tur="", dta=""):
         servicepath = self._servicepath + "/geciciKullanimaVerme/ekle"
-        servicedata = "{" \
-                      + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
-                      + "\"ADT\":" + adt + "," \
-                      + "\"TUA\":\"" + tua + "\"," \
-                      + "\"TUS\":\"" + tus + "\"," \
-                      + "\"TKN\":" + tkn + ", " \
-                      + "\"YKN\":" + ykn + "," \
-                      + "\"PAN\":\"" + pan + "\"," \
-                      + "\"GIT\":\"" + git + "\"," \
-                      + "\"KTN\":" + ktn + "," \
-                      + "\"TUR\":\"" + tur + "\"," \
-                      + "\"DTA\":\"" + dta + "\"" \
-                      + "}"
-
-    # Eşsiz Kimlik Bilgisi İle Geçici Kullanıma Verme Bildirimi
-    def essizkimlikbilgisiilegecicikullanimavermebildir(self, udi, adt, tua, tus, tkn, ykn, pan, git, ktn, tur, dta):
-        servicepath = self._servicepath + "/tuketiciyeVerme/ekle/essizKimlik"
-        servicedata = "{" \
-                      + "\"UDI\":\"" + udi + "\"," \
-                      + "\"ADT\":" + adt + "," \
+        servicedata = "{"
+        if str.strip(udi) != "":
+            servicepath = servicepath + "/essizKimlik"
+            servicedata = servicedata + "\"UDI\":\"" + udi + "\","
+        else:
+            servicedata = servicedata + "\"UNO\":\"" + uno + "\"," \
+                          + "\"LNO\":\"" + lno + "\"," \
+                          + "\"SNO\":\"" + sno + "\","
+        servicedata = servicedata + "\"ADT\":" + str(adt) + "," \
                       + "\"TUA\":\"" + tua + "\"," \
                       + "\"TUS\":\"" + tus + "\"," \
                       + "\"TKN\":" + tkn + ", " \
@@ -307,56 +332,60 @@ class ActionNotificationService:
                       + "}"
 
     # Kullanımdan Alma Bildirimi
-    # Kurum/firma, geçici süreliğine hasta/tüketicinin kullanımına verdiği tekil ürünleri geri aldığında Kullanımdan Alma
-    # Bildirimi yapar.
-    def kullanimdanalmabildir(self, gki, adt, udi, uno, lno, sno):
+    # Kurum/firma, geçici süreliğine hasta/tüketicinin kullanımına verdiği tekil ürünleri
+    # geri aldığında Kullanımdan Alma Bildirimi yapar.
+    def kullanimdanalma_ekle(self, gki, adt, udi, uno, lno, sno):
         servicepath = self._servicepath + "/kullanimdanAlma/ekle"
         servicedata = "{" \
                       + "\"GKI\":" + gki + "," \
-                      + "\"ADT\":" + adt + "," \
                       + "\"UDI\":\"" + udi + "\"," \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"" \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi ile Kullanımdan Alma Bildirimi
-    def essizkimlikbilgisiilekullanimdanalmabildir(self, udi, adt):
+    def kullanimdanalma_ekle_essizkimlik(self, udi, adt):
         servicepath = self._servicepath + "/kullanimdanAlma/ekle/essizKimlik"
         servicedata = "{" \
                       + "\"UDI\":\"" + udi + "\"," \
                       + "\"ADT\":" + adt \
                       + "}"
 
-    # Yeniden İşleme Bildirimi
+    # Yeniden İşleme Bildirimi/Eşsiz Kimlik Bilgisi İle Yeniden İşleme Bildirimi
     # Kurum/firma ÜTS’de tanımlı tekil ürünü başka bir tekil ürünün üretiminde hammadde olarak kullanması durumunda
     # yeniden işleme bildirimi yapar.
-    def yenidenislemebildir(self, uno, lno, sno, adt):
+    def yenidenisleme_ekle(self, uno="", lno="", sno="", udi="", adt=1):
         servicepath = self._servicepath + "/yenidenIsleme/ekle"
         servicedata = "{" \
-                      + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
-                      + "\"ADT\":" + adt \
+                      + "\"UNO\":\"" + uno + "\","
+        if str.strip(udi) != "":
+            servicepath = servicepath + "/essizKimlik"
+            servicedata = servicedata + "\"UDI\":\"" + udi + "\","
+        else:
+            servicedata = servicedata \
+                          + "\"LNO\":\"" + lno + "\"," \
+                          + "\"SNO\":\"" + sno + "\","
+        servicedata = servicedata + "\"ADT\":" + str(adt) \
                       + "}"
 
-    # Eşsiz Kimlik Bilgisi İle Yeniden İşleme Bildirimi
-    def essizkimlikbilgisiileyenidenislemebildir(self, udi, adt):
-        servicepath = self._servicepath + "/yenidenIsleme/ekle/essizKimlik"
-        servicedata = "{" \
-                      + "\"UDI\":\"" + udi + "\"," \
-                      + "\"ADT\":" + adt \
-                      + "}"
-
-    # İhracat Bildirimi
+    # İhracat Bildirimi/Eşsiz Kimlik Bilgisi İle İhracat Bildirimi
     # İhracatçı, ihraç ettiği tekil ürünler için İhracat Bildirimi yapar.
-    def ihracatbildir(self, uno, lno, sno, adt, ben, gbn):
+    def ihracat_ekle(self, uno="", lno="", sno="", udi="", adt=1, ben="", gbn=""):
         servicepath = self._servicepath + "/ihracat/ekle"
-        servicedata = "{" \
-                      + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
-                      + "\"ADT\":" + adt + "," \
+        servicedata = "{"
+        if str.strip(udi) != "":
+            servicepath = servicepath + "/essizKimlik"
+            servicedata = servicedata + "\"UDI\":\"" + udi + "\","
+        else:
+            servicedata = servicedata + "\"UNO\":\"" + uno + "\"," \
+                          + "\"LNO\":\"" + lno + "\"," \
+                          + "\"SNO\":\"" + sno + "\","
+        servicedata = servicedata + "\"ADT\":" + str(adt) + "," \
                       + "\"BEN\":\"" + ben + "\"," \
                       + "\"GBN\":\"" + gbn + "\"" \
                       + "}"
@@ -377,9 +406,12 @@ class ActionNotificationService:
         servicepath = self._servicepath + "/mahrecineIadeEtme/ekle"
         servicedata = "{" \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
-                      + "\"ADT\":" + adt + "," \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "\"GBN\":\"" + gbn + "\"" \
                       + "}"
 
@@ -399,9 +431,12 @@ class ActionNotificationService:
         servicepath = self._servicepath + "/hekZayiat/ekle"
         servicedata = "{" \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
-                      + "\"ADT\":" + adt + "," \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "\"TUR\":\"" + tur + "\"," \
                       + "\"DTA\":\"" + dta + "\"" \
                       + "}"
@@ -423,9 +458,12 @@ class ActionNotificationService:
         servicepath = self._servicepath + "/geriCekmeVerme/ekle"
         servicedata = "{" \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
-                      + "\"ADT\":" + adt + "," \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "\"KUN\":" + kun + "," \
                       + "\"BNO\":\"" + bno + "\"" \
                       + "}"
@@ -447,12 +485,15 @@ class ActionNotificationService:
         servicepath = self._servicepath + "/geriCekmeAlma/ekle"
         servicedata = "{" \
                       + "\"GVI\":\"" + gvi + "\"," \
-                      + "\"ADT\":" + adt + "," \
                       + "\"GKK\":" + gkk + "," \
                       + "\"UDI\":\"" + udi + "\"," \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"" \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "}"
 
     # Eşsiz Kimlik Bilgisi ile Geri Çekme Alma Bildirimi
@@ -471,9 +512,12 @@ class ActionNotificationService:
         servicepath = self._servicepath + "/islahDuzelticiFaaliyet/ekle"
         servicedata = "{" \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
-                      + "\"ADT\":" + adt + "," \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "\"KUN\":" + kun \
                       + "}"
 
@@ -492,9 +536,12 @@ class ActionNotificationService:
         servicepath = self._servicepath + "/geriCekmeVerme/ekle"
         servicedata = "{" \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
-                      + "\"ADT\":" + adt + "," \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "\"GRK\":" + grk + "," \
                       + "\"DGA\":" + dga + "," \
                       + "\"BNO\":\"" + bno + "\"" \
@@ -573,9 +620,12 @@ class ActionNotificationService:
         servicedata = "{" \
                       + "\"UIK\":" + uik + "," \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
-                      + "\"ADT\":" + adt + "," \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "\"URT\":\"" + urt + "\"," \
                       + "\"SKT\":\"" + skt + "\"" \
                       + "}"
@@ -588,7 +638,10 @@ class ActionNotificationService:
         servicedata = "{" \
                       + "\"UIK\":" + uik + "," \
                       + "\"UNO\":\"" + uno + "\"," \
-                      + "\"LNO\":\"" + lno + "\"," \
-                      + "\"SNO\":\"" + sno + "\"," \
-                      + "\"ADT\":" + adt \
+                      + "\"LNO\":\"" + lno + "\","
+        if str.strip(sno) != "":
+            servicedata = servicedata + ",\"SNO\":\"" + sno + "\""
+        else:
+            servicedata = servicedata + ",\"ADT\":" + str(adt) + ","
+        servicedata = servicedata \
                       + "}"
