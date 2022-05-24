@@ -269,8 +269,8 @@ def get_all_declineddeliverynotifications():
             msg=object_name + ' ÜTS\'de kayıtlı değildir.'
         )
     for notification in notifications:
+        lowerdict: dict = dict()
         for key in notification.keys():
-            lowerdict: dict = dict()
             lowerdict[key.lower()] = notification.get(key)
         lowerdict['doctype'] = 'TR UTS Declined Delivery Notification'
         # create a new document
@@ -292,8 +292,8 @@ def get_all_incomingnotificationsdeclined():
             msg=object_name + ' ÜTS\'de kayıtlı değildir.'
         )
     for notification in notifications:
+        lowerdict: dict = dict()
         for key in notification.keys():
-            lowerdict: dict = dict()
             lowerdict[key.lower()] = notification.get(key)
         lowerdict['doctype'] = 'TR UTS Incoming Notifications Declined'
         # create a new document
