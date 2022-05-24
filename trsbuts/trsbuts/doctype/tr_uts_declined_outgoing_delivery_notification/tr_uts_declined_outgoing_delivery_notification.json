@@ -86,7 +86,7 @@
  "modified": "2022-05-24 04:49:31.438978",
  "modified_by": "Administrator",
  "module": "Trsbuts",
- "name": "TR UTS Declined Delivery Notification",
+ "name": "TR UTS Declined Outgoing Delivery Notification",
  "owner": "Administrator",
  "permissions": [
   {

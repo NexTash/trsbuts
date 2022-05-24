@@ -7,7 +7,7 @@
    "label": "Almak \u0130stemedi\u011fim Verme Bildirimleri"
   },
   {
-   "action": "trsbuts.api.get_all_declineddeliverynotifications",
+   "action": "trsbuts.api.get_all_declinedoutgoingdeliverynotifications",
    "action_type": "Server Action",
    "group": "\u00dcTS",
    "label": "Al\u0131nmak \u0130stenmeyen Verme Bildirimlerim"
@@ -100,7 +100,7 @@
   }
  ],
  "links": [],
- "modified": "2022-05-24 04:34:21.399774",
+ "modified": "2022-05-24 12:22:53.677203",
  "modified_by": "Administrator",
  "module": "Trsbuts",
  "name": "TR UTS Company Settings",

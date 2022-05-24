@@ -4,5 +4,5 @@
 # import frappe
 import unittest
 
-class TestTRUTSDeclinedDeliveryNotification(unittest.TestCase):
+class TestTRUTSDeclinedOutgoingDeliveryNotification(unittest.TestCase):
 	pass

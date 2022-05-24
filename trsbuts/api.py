@@ -313,7 +313,7 @@ def get_bildirim_by_batch(batch, vendor_batch):
 
 
 @frappe.whitelist()
-def get_all_declineddeliverynotifications():
+def get_all_declinedoutgoingdeliverynotifications():
     object_name = "Alınmak İstenmeyen Verme Bildirimlerim"
     q = InquiringService()
     d: dict = q.alinmakistenmeyenvermebildirimlerimsorgula()
@@ -324,13 +324,8 @@ def get_all_declineddeliverynotifications():
             title='Hata',
             msg=object_name + ' ÜTS\'de kayıtlı değildir.'
         )
-    for notification in notifications:
-        lowerdict: dict = dict(doctype='TR UTS Declined Delivery Notification')
-        for key in notification.keys():
-            lowerdict[key.lower()] = notification.get(key)
-        # create a new document
-        doc = frappe.get_doc(lowerdict)
-        doc.insert()
+    _doctype = "TR UTS Declined Outgoing Delivery Notification"
+    refill_doctype_table(_doctype, notifications)
     return ""
 
 
@@ -346,11 +341,30 @@ def get_all_incomingnotificationsdeclined():
             title='Hata',
             msg=object_name + ' ÜTS\'de kayıtlı değildir.'
         )
-    for notification in notifications:
-        lowerdict: dict = dict(doctype='TR UTS Incoming Notifications Declined')
-        for key in notification.keys():
-            lowerdict[key.lower()] = notification.get(key)
+    _doctype = "TR UTS Incoming Notifications Declined"
+    refill_doctype_table(_doctype, notifications)
+    return ""
+
+
+def refill_doctype_table(doctype: str, entries: dict):
+    for n in frappe.get_list(doctype):
+        frappe.delete_doc_if_exists(doctype=doctype, name=n.get('name'))
+    for entry in entries:
+        lowerdict: dict = dict(doctype=doctype)
+        for key in entry.keys():
+            lowerdict[key.lower()] = entry.get(key)
         # create a new document
         doc = frappe.get_doc(lowerdict)
         doc.insert()
-    return ""
+
+
+def refill_doctype_childtable(doctype: str, entries: dict):
+    for n in frappe.get_list(doctype):
+        frappe.delete_doc_if_exists(doctype=doctype, name=n.get('name'))
+    for entry in entries:
+        lowerdict: dict = dict(doctype=doctype)
+        for key in entry.keys():
+            lowerdict[key.lower()] = entry.get(key)
+        # create a new document
+        doc = frappe.get_doc(lowerdict)
+        doc.insert()
