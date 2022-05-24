@@ -254,3 +254,26 @@ def get_askidakitekilurun_by_batch(batch, vendor_batch):
         b.append("pending_individual_product", lowerdict)
     b.save()
     return ""
+
+
+@frappe.whitelist()
+def get_all_incomingnotificationsdeclined():
+    object_name = "Almak İstemediğim Verme Bildirimleri"
+    q = InquiringService()
+    d: dict = q.alinmakistenmeyenvermebildirimlerimsorgula()
+    notifications: dict = dict()
+    notifications = d.get("SNC").get("LST")
+    if len(notifications) == 0:
+        frappe.throw(
+            title='Hata',
+            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        )
+    for notification in notifications:
+        for key in notification.keys():
+            lowerdict: dict = dict()
+            lowerdict[key.lower()] = notification.get(key)
+            lowerdict.doctype = 'TR UTS Incoming Notifications Declined'
+            # create a new document
+            doc = frappe.get_doc(lowerdict)
+            doc.insert()
+    return ""
