@@ -257,6 +257,29 @@ def get_askidakitekilurun_by_batch(batch, vendor_batch):
 
 
 @frappe.whitelist()
+def get_all_declineddeliverynotifications():
+    object_name = "Alınmak İstenmeyen Verme Bildirimlerim"
+    q = InquiringService()
+    d: dict = q.alinmakistenmeyenvermebildirimlerimsorgula()
+
+    notifications = d.get("SNC").get("LST")
+    if len(notifications) == 0:
+        frappe.throw(
+            title='Hata',
+            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        )
+    for notification in notifications:
+        for key in notification.keys():
+            lowerdict: dict = dict()
+            lowerdict[key.lower()] = notification.get(key)
+        lowerdict['doctype'] = 'TR UTS Declined Delivery Notification'
+        # create a new document
+        doc = frappe.get_doc(lowerdict)
+        doc.insert()
+    return ""
+
+
+@frappe.whitelist()
 def get_all_incomingnotificationsdeclined():
     object_name = "Almak İstemediğim Verme Bildirimleri"
     q = InquiringService()
@@ -272,8 +295,8 @@ def get_all_incomingnotificationsdeclined():
         for key in notification.keys():
             lowerdict: dict = dict()
             lowerdict[key.lower()] = notification.get(key)
-            lowerdict['doctype'] = 'TR UTS Incoming Notifications Declined'
-            # create a new document
-            doc = frappe.get_doc(lowerdict)
-            doc.insert()
+        lowerdict['doctype'] = 'TR UTS Incoming Notifications Declined'
+        # create a new document
+        doc = frappe.get_doc(lowerdict)
+        doc.insert()
     return ""
