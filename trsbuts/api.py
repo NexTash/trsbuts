@@ -1,4 +1,5 @@
 import requests
+from trsbuts.ActionNotificationService import ActionNotificationService
 from trsbuts.InquiringService import InquiringService
 from trsbuts.QueryCompanyService import QueryCompanyService
 from trsbuts.SearchProductDefinitionService import SearchProductDefinitionService
@@ -34,20 +35,77 @@ def test_integration(test, testtoken):
 
 
 @frappe.whitelist()
+def create_importnotification_via_purchasereceipt(name):
+    main_doctype = "Purchase Receipt"
+    purchasereceipt = frappe.get_doc(main_doctype, name)
+    for item in frappe.get_all(
+            purchasereceipt.get_table_field_doctype("items"),
+            filters={
+                'parent': name,
+                'parentfield': 'items',
+                'parenttype': main_doctype
+            }):
+        product_number = item.barcode
+        if get_urun_by_uno(product_number):
+            imported_country = frappe.get_doc("TR UTS Country Reference Code",
+                                              purchasereceipt.supplier_address.get("country")
+                                              ).get("EDI XML Reference Code")
+            origin_country = frappe.get_doc("TR UTS Country Reference Code",
+                                            item.country_of_origin
+                                            ).get("EDI XML Reference Code")
+            ans = ActionNotificationService()
+            if item.serial_no is not None or item.serial_no != "":
+                item_serial = frappe.get_doc("Serial No", item.serial_no)
+                batch = frappe.get_doc("Batch", item_serial.batch_no)
+                d: dict = ans.ithalat_ekle(
+                    uno=product_number,
+                    lno=str.strip(batch.get("vendor_batch")),
+                    sno=item_serial.serial_no,
+                    urt=batch.get("manufacturing_date"),
+                    skt=batch.get("expiry_date"),
+                    itt=purchasereceipt.posting_date,
+                    udi="",
+                    ieu=imported_country,
+                    meu=origin_country,
+                    gbn=purchasereceipt.supplier_delivery_note,
+                    sip="",
+                    kus="",
+                    gtk="")
+
+            else:
+                batch = frappe.get_doc("Batch", item.batch_no)
+                d: dict = ans.ithalat_ekle(
+                    uno=product_number,
+                    lno=str.strip(batch.get("vendor_batch")),
+                    urt=batch.get("manufacturing_date"),
+                    skt=batch.get("expiry_date"),
+                    itt=purchasereceipt.posting_date,
+                    adt=item.received_qty,
+                    udi="",
+                    ieu=imported_country,
+                    meu=origin_country,
+                    gbn=purchasereceipt.supplier_delivery_note,
+                    sip="",
+                    kus="",
+                    gtk="")
+    return ""
+
+
+@frappe.whitelist()
 def get_utsid_by_taxid(vrg):
     object_name = "Vergi No"
     q = QueryCompanyService()
-    d: list = q.firmasorgula(vrg=vrg)
-    if len(d) == 1:
-        return d[0].get('KRN')
-    if len(d) == 0:
+    firma: list = q.firmasorgula(vrg=vrg)
+    if len(firma) == 1:
+        return firma[0].get('KRN')
+    if len(firma) == 0:
         frappe.throw(
             title='Hata',
             msg=object_name + ' ÜTS\'de kayıtlı değildir.'
         )
-    if len(d) > 1:
+    if len(firma) > 1:
         branches: list = list()
-        for branch in d:
+        for branch in firma:
             if branch.get('DRM') == 'AKTIF':
                 branchlist: list = list()
                 branchlist.append(branch.get('KRN'))
@@ -62,31 +120,12 @@ def get_utsid_by_taxid(vrg):
 
 
 @frappe.whitelist()
-def get_urun_by_uno(uno):
-    object_name = "Parti"
+def get_urun_by_uno(urun_numarasi):
     q = SearchProductDefinitionService()
-    d: list = q.urunsorgula(uno=uno)
-    if len(d) == 1:
-        return d[0].get('KRN')
-    if len(d) == 0:
-        frappe.throw(
-            title='Hata',
-            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
-        )
-    if len(d) > 1:
-        branches: list = list()
-        for branch in d:
-            if branch.get('DRM') == 'AKTIF':
-                branchlist: list = list()
-                branchlist.append(branch.get('KRN'))
-                branchlist.append(branch.get('GAD'))
-                branches.append(branchlist)
-        frappe.msgprint(
-            msg=branches,
-            title='Aktif şubeler',
-            as_table=True,
-            as_list=False
-        )
+    urun: dict = q.urunsorgula(uno=urun_numarasi)
+    if urun.get("sonuc") == 1:
+        return False
+    return True
 
 
 @frappe.whitelist()
@@ -124,7 +163,7 @@ def get_tekilurun_by_batch(batch, vendor_batch):
         )
     if len(individual) == 0:
         return ""
-    for children in frappe.get_all(
+    for child in frappe.get_all(
             b.get_table_field_doctype("individual_product"),
             filters={
                 'parent': b.name,
@@ -133,7 +172,7 @@ def get_tekilurun_by_batch(batch, vendor_batch):
             }):
         frappe.delete_doc(
             b.get_table_field_doctype("individual_product"),
-            children.name,
+            child.name,
             delete_permanently=True)
     lowerdict: dict = dict()
     for key in individual.keys():
@@ -179,7 +218,7 @@ def get_sistemdisitekilurun_by_batch(batch, vendor_batch):
         )
     if len(individuals) == 0:
         return ""
-    for children in frappe.get_all(
+    for child in frappe.get_all(
             b.get_table_field_doctype("individual_product_out_of_the_system"),
             filters={
                 'parent': b.name,
@@ -188,7 +227,7 @@ def get_sistemdisitekilurun_by_batch(batch, vendor_batch):
             }):
         frappe.delete_doc(
             b.get_table_field_doctype("individual_product_out_of_the_system"),
-            children.name,
+            child.name,
             delete_permanently=True)
     lowerdict: dict = dict()
     for individual in individuals:
@@ -235,7 +274,7 @@ def get_askidakitekilurun_by_batch(batch, vendor_batch):
         )
     if len(individuals) == 0:
         return ""
-    for children in frappe.get_all(
+    for child in frappe.get_all(
             b.get_table_field_doctype("pending_individual_product"),
             filters={
                 'parent': b.name,
@@ -244,7 +283,7 @@ def get_askidakitekilurun_by_batch(batch, vendor_batch):
             }):
         frappe.delete_doc(
             b.get_table_field_doctype("pending_individual_product"),
-            children.name,
+            child.name,
             delete_permanently=True)
     lowerdict: dict = dict()
     for individual in individuals:
@@ -291,7 +330,7 @@ def get_bildirim_by_batch(batch, vendor_batch):
         )
     if len(individuals) == 0:
         return ""
-    for children in frappe.get_all(
+    for child in frappe.get_all(
             b.get_table_field_doctype("notification"),
             filters={
                 'parent': b.name,
@@ -300,7 +339,7 @@ def get_bildirim_by_batch(batch, vendor_batch):
             }):
         frappe.delete_doc(
             b.get_table_field_doctype("notification"),
-            children.name,
+            child.name,
             delete_permanently=True)
     lowerdict: dict = dict()
     for individual in individuals:
