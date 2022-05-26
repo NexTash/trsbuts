@@ -356,15 +356,3 @@ def refill_doctype_table(doctype: str, entries: dict):
         # create a new document
         doc = frappe.get_doc(lowerdict)
         doc.insert()
-
-
-def refill_doctype_childtable(doctype: str, entries: dict):
-    for n in frappe.get_list(doctype):
-        frappe.delete_doc_if_exists(doctype=doctype, name=n.get('name'))
-    for entry in entries:
-        lowerdict: dict = dict(doctype=doctype)
-        for key in entry.keys():
-            lowerdict[key.lower()] = entry.get(key)
-        # create a new document
-        doc = frappe.get_doc(lowerdict)
-        doc.insert()
