@@ -2,18 +2,19 @@
  "actions": [],
  "autoname": "field:bid",
  "creation": "2022-05-22 23:05:28.679916",
+ "description": "Al\u0131nmak \u0130stenmeyen Verme Bildirimlerim",
  "doctype": "DocType",
  "document_type": "Document",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "gkk",
   "uno",
   "lno",
   "sno",
   "adt",
   "bid",
   "kun",
+  "gkk",
   "dku",
   "aid",
   "aid_description"
@@ -70,7 +71,7 @@
    "fieldtype": "Link",
    "hidden": 1,
    "label": "aid",
-   "options": "TR UTS Notification Type"
+   "options": "TR UTS Notification Status"
   },
   {
    "fetch_from": "aid.description",
@@ -82,7 +83,7 @@
   }
  ],
  "links": [],
- "modified": "2022-05-24 16:38:16.546346",
+ "modified": "2022-05-27 19:08:08.165711",
  "modified_by": "Administrator",
  "module": "Trsbuts",
  "name": "TR UTS Declined Outgoing Delivery Notification",

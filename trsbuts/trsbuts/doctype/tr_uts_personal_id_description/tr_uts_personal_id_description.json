@@ -2,8 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "field:value",
- "creation": "2022-05-22 13:47:02.148498",
- "description": "Bildirim Tipi",
+ "creation": "2022-05-27 12:59:12.586647",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -22,15 +21,15 @@
    "fieldname": "description",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Description",
-   "translatable": 1
+   "label": "Description"
   }
  ],
+ "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-05-27 18:54:23.996712",
+ "modified": "2022-05-27 12:59:12.586647",
  "modified_by": "Administrator",
  "module": "Trsbuts",
- "name": "TR UTS Notification Type",
+ "name": "TR UTS Personal ID Description",
  "owner": "Administrator",
  "permissions": [
   {

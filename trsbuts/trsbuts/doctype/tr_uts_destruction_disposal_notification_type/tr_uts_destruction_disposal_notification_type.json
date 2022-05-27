@@ -2,8 +2,8 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "field:value",
- "creation": "2022-05-22 13:47:02.148498",
- "description": "Bildirim Tipi",
+ "creation": "2022-05-27 14:20:49.278041",
+ "description": "\u0130mha/Bertaraf Gerek\u00e7esi",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -27,10 +27,10 @@
   }
  ],
  "links": [],
- "modified": "2022-05-27 18:54:23.996712",
+ "modified": "2022-05-27 18:52:27.462345",
  "modified_by": "Administrator",
  "module": "Trsbuts",
- "name": "TR UTS Notification Type",
+ "name": "TR UTS Destruction Disposal Notification Type",
  "owner": "Administrator",
  "permissions": [
   {

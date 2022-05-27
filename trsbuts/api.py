@@ -174,6 +174,7 @@ def get_tekilurun_by_batch(batch, vendor_batch):
             b.get_table_field_doctype("individual_product"),
             child.name,
             delete_permanently=True)
+    b.save()
     lowerdict: dict = dict()
     for key in individual.keys():
         lowerdict[key.lower()] = individual.get(key)
@@ -229,6 +230,7 @@ def get_sistemdisitekilurun_by_batch(batch, vendor_batch):
             b.get_table_field_doctype("individual_product_out_of_the_system"),
             child.name,
             delete_permanently=True)
+    b.save()
     lowerdict: dict = dict()
     for individual in individuals:
         for key in individual.keys():
@@ -285,6 +287,7 @@ def get_askidakitekilurun_by_batch(batch, vendor_batch):
             b.get_table_field_doctype("pending_individual_product"),
             child.name,
             delete_permanently=True)
+    b.save()
     lowerdict: dict = dict()
     for individual in individuals:
         for key in individual.keys():
@@ -341,6 +344,7 @@ def get_bildirim_by_batch(batch, vendor_batch):
             b.get_table_field_doctype("notification"),
             child.name,
             delete_permanently=True)
+    b.save()
     lowerdict: dict = dict()
     for individual in individuals:
         for key in individual.keys():

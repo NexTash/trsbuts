@@ -1,0 +1,118 @@
+{
+ "actions": [],
+ "creation": "2022-05-27 13:23:15.861861",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "uno",
+  "lno",
+  "sno",
+  "adt",
+  "haa",
+  "has",
+  "tkn",
+  "ykn",
+  "pan",
+  "git",
+  "ktn",
+  "tur",
+  "tur_description",
+  "dta",
+  "ydm"
+ ],
+ "fields": [
+  {
+   "fieldname": "uno",
+   "fieldtype": "Data",
+   "label": "\u00dcr\u00fcn Numaras\u0131",
+   "reqd": 1
+  },
+  {
+   "fieldname": "lno",
+   "fieldtype": "Data",
+   "label": "Lot/Batch Numaras\u0131"
+  },
+  {
+   "fieldname": "sno",
+   "fieldtype": "Data",
+   "label": "Seri/S\u0131ra Numaras\u0131"
+  },
+  {
+   "fieldname": "adt",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Adet"
+  },
+  {
+   "fieldname": "haa",
+   "fieldtype": "Data",
+   "label": "Hasta Ad\u0131"
+  },
+  {
+   "fieldname": "has",
+   "fieldtype": "Data",
+   "label": "Hasta Soyad\u0131"
+  },
+  {
+   "fieldname": "tkn",
+   "fieldtype": "Data",
+   "label": "T.C. Kimlik No"
+  },
+  {
+   "fieldname": "ykn",
+   "fieldtype": "Data",
+   "label": "Yabanc\u0131 Kimlik No"
+  },
+  {
+   "fieldname": "pan",
+   "fieldtype": "Data",
+   "label": "Pasaport No"
+  },
+  {
+   "fieldname": "git",
+   "fieldtype": "Data",
+   "label": "Kullan\u0131m Tarihi"
+  },
+  {
+   "fieldname": "ktn",
+   "fieldtype": "Data",
+   "label": "Ki\u015fi Tan\u0131mlay\u0131c\u0131 Numara"
+  },
+  {
+   "fieldname": "tur",
+   "fieldtype": "Link",
+   "label": "tur",
+   "options": "TR UTS Personal ID Description"
+  },
+  {
+   "fetch_from": "tur.description",
+   "fetch_if_empty": 1,
+   "fieldname": "tur_description",
+   "fieldtype": "Data",
+   "label": "Ki\u015fi Kimlik Bilgisi A\u00e7\u0131klama T\u00fcr\u00fc"
+  },
+  {
+   "fieldname": "dta",
+   "fieldtype": "Data",
+   "label": "Ki\u015fi Kimlik Bilgisi Di\u011fer T\u00fcr A\u00e7\u0131klamas\u0131"
+  },
+  {
+   "fieldname": "ydm",
+   "fieldtype": "Select",
+   "label": "Yeni Do\u011fan M\u0131?",
+   "options": "EVET\nHAYIR"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-05-27 14:45:20.222705",
+ "modified_by": "Administrator",
+ "module": "Trsbuts",
+ "name": "TR UTS Usage Notification",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

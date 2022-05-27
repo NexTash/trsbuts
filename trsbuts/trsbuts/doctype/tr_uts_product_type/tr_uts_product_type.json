@@ -20,12 +20,14 @@
   {
    "fieldname": "description",
    "fieldtype": "Data",
-   "label": "Description"
+   "in_list_view": 1,
+   "label": "Description",
+   "translatable": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-05-21 21:27:00.234580",
+ "modified": "2022-05-27 14:35:34.567498",
  "modified_by": "Administrator",
  "module": "Trsbuts",
  "name": "TR UTS Product Type",
