@@ -1,4 +1,4 @@
-import trsbuts.UTSConnection as UTSConnection
+from trsbuts.UTSConnection import UTSConnection
 
 
 class SearchProductDefinitionService:
