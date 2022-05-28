@@ -45,10 +45,10 @@ def create_importnotification_via_purchasereceipt(name):
                 'parentfield': 'items',
                 'parenttype': main_doctype
             }):
-        if item.barcode is not None or item.barcode != "":
+        if item.barcode is not None:
             product_number = item.barcode
         else:
-            get_barcode_of_item(item.item_code.name)
+            product_number = get_barcode_of_item(item.item_code)
         if get_urun_by_uno(product_number):
             imported_country = frappe.get_doc("TR UTS Country Reference Code",
                                               purchasereceipt.supplier_address.get("country")
@@ -135,27 +135,10 @@ def get_urun_by_uno(urun_numarasi):
 def get_tekilurun_by_batch(batch, vendor_batch):
     object_name = "Tekil Ürün"
     b = frappe.get_doc("Batch", batch)
-    i = frappe.get_doc("Item", b.item)
-    l: list = frappe.get_all(
-        i.get_table_field_doctype("barcodes"),
-        filters={
-            'parent': b.item,
-            'parentfield': 'barcodes',
-            'parenttype': 'Item',
-            'barcode_type': 'EAN'
-        },
-        fields={
-            "barcode"
-        })
-    if len(l) == 0:
-        frappe.throw(
-            title='Hata',
-            msg='Sisteminizde Birincil Ürün Numarası kayıtlı değildir.'
-        )
     q = InquiringService()
     if b.vendor_batch == "":
         b.vendor_batch = vendor_batch
-    d: dict = q.tekilurunsorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
+    d: dict = q.tekilurunsorgula(uno=get_barcode_of_item(b.item), lno=str.strip(b.vendor_batch))
     individual: dict = dict()
     try:
         individual = d.get("SNC")[0]
@@ -191,27 +174,10 @@ def get_tekilurun_by_batch(batch, vendor_batch):
 def get_sistemdisitekilurun_by_batch(batch, vendor_batch):
     object_name = "Sistem Dışına Çıkan Tekil Ürün"
     b = frappe.get_doc("Batch", batch)
-    i = frappe.get_doc("Item", b.item)
-    l: list = frappe.get_all(
-        i.get_table_field_doctype("barcodes"),
-        filters={
-            'parent': b.item,
-            'parentfield': 'barcodes',
-            'parenttype': 'Item',
-            'barcode_type': 'EAN'
-        },
-        fields={
-            "barcode"
-        })
-    if len(l) == 0:
-        frappe.throw(
-            title='Hata',
-            msg='Sisteminizde Birincil Ürün Numarası kayıtlı değildir.'
-        )
     q = InquiringService()
     if b.vendor_batch == "":
         b.vendor_batch = vendor_batch
-    d: dict = q.tekilurunsistemdisinacikansorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
+    d: dict = q.tekilurunsistemdisinacikansorgula(uno=get_barcode_of_item(b.item), lno=str.strip(b.vendor_batch))
     individuals: dict = dict()
     try:
         individuals = d.get("SNC")
@@ -248,27 +214,10 @@ def get_sistemdisitekilurun_by_batch(batch, vendor_batch):
 def get_askidakitekilurun_by_batch(batch, vendor_batch):
     object_name = "Askıdaki Tekil Ürün"
     b = frappe.get_doc("Batch", batch)
-    i = frappe.get_doc("Item", b.item)
-    l: list = frappe.get_all(
-        i.get_table_field_doctype("barcodes"),
-        filters={
-            'parent': b.item,
-            'parentfield': 'barcodes',
-            'parenttype': 'Item',
-            'barcode_type': 'EAN'
-        },
-        fields={
-            "barcode"
-        })
-    if len(l) == 0:
-        frappe.throw(
-            title='Hata',
-            msg='Sisteminizde Birincil Ürün Numarası kayıtlı değildir.'
-        )
     q = InquiringService()
     if b.vendor_batch == "":
         b.vendor_batch = vendor_batch
-    d: dict = q.vermebildirimaskidakilersorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
+    d: dict = q.vermebildirimaskidakilersorgula(uno=get_barcode_of_item(b.item), lno=str.strip(b.vendor_batch))
     individuals: dict = dict()
     try:
         individuals = d.get("SNC")
@@ -305,27 +254,10 @@ def get_askidakitekilurun_by_batch(batch, vendor_batch):
 def get_bildirim_by_batch(batch, vendor_batch):
     object_name = "Bildirim"
     b = frappe.get_doc("Batch", batch)
-    i = frappe.get_doc("Item", b.item)
-    l: list = frappe.get_all(
-        i.get_table_field_doctype("barcodes"),
-        filters={
-            'parent': b.item,
-            'parentfield': 'barcodes',
-            'parenttype': 'Item',
-            'barcode_type': 'EAN'
-        },
-        fields={
-            "barcode"
-        })
-    if len(l) == 0:
-        frappe.throw(
-            title='Hata',
-            msg='Sisteminizde Birincil Ürün Numarası kayıtlı değildir.'
-        )
     q = InquiringService()
     if b.vendor_batch == "":
         b.vendor_batch = vendor_batch
-    d: dict = q.bildirimsorgula(uno=l[0].get('barcode'), lno=str.strip(b.vendor_batch))
+    d: dict = q.bildirimsorgula(uno=get_barcode_of_item(b.item), lno=str.strip(b.vendor_batch))
     individuals: dict = dict()
     try:
         individuals = d.get("SNC")
@@ -402,6 +334,7 @@ def refill_doctype_table(doctype: str, entries: dict):
         # create a new document
         doc = frappe.get_doc(lowerdict)
         doc.insert()
+
 
 def get_barcode_of_item(name):
     i = frappe.get_doc("Item", name)
