@@ -2,7 +2,7 @@ from trsbuts.UTSConnection import UTSConnection
 
 
 class SearchProductDefinitionService:
-    def __index__(self):
+    def __init__(self):
         self._servicepath = "/UTS/rest/tibbiCihaz"
 
     # ÜRÜN SORGULAMA SERVİSİ
