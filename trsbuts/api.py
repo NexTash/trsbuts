@@ -45,7 +45,10 @@ def create_importnotification_via_purchasereceipt(name):
                 'parentfield': 'items',
                 'parenttype': main_doctype
             }):
-        product_number = item.barcode
+        if item.barcode is not None or item.barcode != "":
+            product_number = item.barcode
+        else:
+            get_barcode_of_item(item.item_code.name)
         if get_urun_by_uno(product_number):
             imported_country = frappe.get_doc("TR UTS Country Reference Code",
                                               purchasereceipt.supplier_address.get("country")
@@ -399,3 +402,24 @@ def refill_doctype_table(doctype: str, entries: dict):
         # create a new document
         doc = frappe.get_doc(lowerdict)
         doc.insert()
+
+def get_barcode_of_item(name):
+    i = frappe.get_doc("Item", name)
+    l: list = frappe.get_all(
+        i.get_table_field_doctype("barcodes"),
+        filters={
+            'parent': name,
+            'parentfield': 'barcodes',
+            'parenttype': 'Item',
+            'barcode_type': 'EAN'
+        },
+        fields={
+            "barcode"
+        })
+    if len(l) == 0:
+        frappe.throw(
+            title='Hata',
+            msg='Sisteminizde Birincil Ürün Numarası kayıtlı değildir.'
+        )
+    else:
+        return l[0].get('barcode')
