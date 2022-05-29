@@ -330,7 +330,7 @@ def get_all_individualproductstobeaccepted():
     q = InquiringService()
     d: dict = q.bildirimalmabekleyenlersorgula()
 
-    notifications = d.get("SNC")
+    notifications = d.get("SNC").get("LST")
     if len(notifications) == 0:
         frappe.throw(
             title='Hata',

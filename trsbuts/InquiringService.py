@@ -134,14 +134,11 @@ class InquiringService:
             servicedata = servicedata + "\"SAN\":" + str(san)
             parametercheck = True
 
-        if parametercheck:
-            c: UTSConnection = UTSConnection()
-            return c.connect(
-                self._servicepath + "/bildirim/alma/bekleyenler/sorgula",
-                servicedata + "}"
-            )
-        else:
-            return ""
+        c: UTSConnection = UTSConnection()
+        return c.connect(
+            self._servicepath + "/bildirim/alma/bekleyenler/sorgula",
+            servicedata + "}"
+        )
 
     # Alınmak İstenmeyen Verme Bildirimlerimi Sorgula
     # Bir kuruma gelen verme bildirimleri, alma yapması beklenen
