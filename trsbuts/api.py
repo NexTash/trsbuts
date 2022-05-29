@@ -119,14 +119,22 @@ def refresh_all_items():
                     'barcode_type': 'EAN'
                 },
                 fields={
-                    "barcode",
-                    "vendor_batch"
+                    "barcode"
                 }):
             if get_urun_by_uno(barcode.get("barcode")):
-                get_tekilurun_by_batch(barcode.get("barcode"), barcode.get("vendor_batch"))
-                get_bildirim_by_batch((barcode.get("barcode"), barcode.get("vendor_batch")))
-                get_askidakitekilurun_by_batch(barcode.get("barcode"), barcode.get("vendor_batch"))
-                get_sistemdisitekilurun_by_batch(barcode.get("barcode"), barcode.get("vendor_batch"))
+                for batch in frappe.get_all(
+                        "Batch",
+                        filters={
+                            'item': i.name
+                        },
+                        fields={
+                            "batch",
+                            "vendor_batch"
+                        }):
+                    get_tekilurun_by_batch(batch.get("batch"), batch.get("vendor_batch"))
+                    get_bildirim_by_batch((batch.get("batch"), batch.get("vendor_batch")))
+                    get_askidakitekilurun_by_batch(batch.get("batch"), batch.get("vendor_batch"))
+                    get_sistemdisitekilurun_by_batch(batch.get("batch"), batch.get("vendor_batch"))
 
 
 @frappe.whitelist()
