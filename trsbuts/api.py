@@ -5,6 +5,7 @@ from trsbuts.QueryCompanyService import QueryCompanyService
 from trsbuts.SearchProductDefinitionService import SearchProductDefinitionService
 
 import frappe
+from frappe.model.document import Document
 
 
 @frappe.whitelist()
@@ -134,7 +135,8 @@ def get_urun_by_uno(urun_numarasi):
 @frappe.whitelist()
 def get_tekilurun_by_batch(batch, vendor_batch):
     object_name = "Tekil Ürün"
-    b = frappe.get_doc("Batch", batch)
+    doctype = "Batch"
+    b = frappe.get_doc(doctype, batch)
     q = InquiringService()
     if b.vendor_batch == "":
         b.vendor_batch = vendor_batch
@@ -149,31 +151,16 @@ def get_tekilurun_by_batch(batch, vendor_batch):
         )
     if len(individual) == 0:
         return ""
-    for child in frappe.get_all(
-            b.get_table_field_doctype("individual_product"),
-            filters={
-                'parent': b.name,
-                'parentfield': 'individual_product',
-                'parenttype': 'Batch'
-            }):
-        frappe.delete_doc(
-            b.get_table_field_doctype("individual_product"),
-            child.name,
-            delete_permanently=True)
-    b.save()
-    lowerdict: dict = dict()
-    for key in individual.keys():
-        lowerdict[key.lower()] = individual.get(key)
-
-    b.append("individual_product", lowerdict)
-    b.save()
+    table_field = "individual_product"
+    refill_child_table_of_doc(b, doctype, table_field, individuals)
     return ""
 
 
 @frappe.whitelist()
 def get_sistemdisitekilurun_by_batch(batch, vendor_batch):
     object_name = "Sistem Dışına Çıkan Tekil Ürün"
-    b = frappe.get_doc("Batch", batch)
+    doctype = "Batch"
+    b = frappe.get_doc(doctype, batch)
     q = InquiringService()
     if b.vendor_batch == "":
         b.vendor_batch = vendor_batch
@@ -188,32 +175,16 @@ def get_sistemdisitekilurun_by_batch(batch, vendor_batch):
         )
     if len(individuals) == 0:
         return ""
-    for child in frappe.get_all(
-            b.get_table_field_doctype("individual_product_out_of_the_system"),
-            filters={
-                'parent': b.name,
-                'parentfield': 'individual_product_out_of_the_system',
-                'parenttype': 'Batch'
-            }):
-        frappe.delete_doc(
-            b.get_table_field_doctype("individual_product_out_of_the_system"),
-            child.name,
-            delete_permanently=True)
-    b.save()
-    lowerdict: dict = dict()
-    for individual in individuals:
-        for key in individual.keys():
-            lowerdict[key.lower()] = individual.get(key)
-
-        b.append("individual_product_out_of_the_system", lowerdict)
-    b.save()
+    table_field = "individual_product_out_of_the_system"
+    refill_child_table_of_doc(b, doctype, table_field, individuals)
     return ""
 
 
 @frappe.whitelist()
 def get_askidakitekilurun_by_batch(batch, vendor_batch):
     object_name = "Askıdaki Tekil Ürün"
-    b = frappe.get_doc("Batch", batch)
+    doctype = "Batch"
+    b: Document = frappe.get_doc(doctype, batch)
     q = InquiringService()
     if b.vendor_batch == "":
         b.vendor_batch = vendor_batch
@@ -228,32 +199,16 @@ def get_askidakitekilurun_by_batch(batch, vendor_batch):
         )
     if len(individuals) == 0:
         return ""
-    for child in frappe.get_all(
-            b.get_table_field_doctype("pending_individual_product"),
-            filters={
-                'parent': b.name,
-                'parentfield': 'pending_individual_product',
-                'parenttype': 'Batch'
-            }):
-        frappe.delete_doc(
-            b.get_table_field_doctype("pending_individual_product"),
-            child.name,
-            delete_permanently=True)
-    b.save()
-    lowerdict: dict = dict()
-    for individual in individuals:
-        for key in individual.keys():
-            lowerdict[key.lower()] = individual.get(key)
-
-        b.append("pending_individual_product", lowerdict)
-    b.save()
+    table_field = "pending_individual_product"
+    refill_child_table_of_doc(b, doctype, table_field, individuals)
     return ""
 
 
 @frappe.whitelist()
 def get_bildirim_by_batch(batch, vendor_batch):
     object_name = "Bildirim"
-    b = frappe.get_doc("Batch", batch)
+    doctype = "Batch"
+    b = frappe.get_doc(doctype, batch)
     q = InquiringService()
     if b.vendor_batch == "":
         b.vendor_batch = vendor_batch
@@ -268,25 +223,8 @@ def get_bildirim_by_batch(batch, vendor_batch):
         )
     if len(individuals) == 0:
         return ""
-    for child in frappe.get_all(
-            b.get_table_field_doctype("notification"),
-            filters={
-                'parent': b.name,
-                'parentfield': 'notification',
-                'parenttype': 'Batch'
-            }):
-        frappe.delete_doc(
-            b.get_table_field_doctype("notification"),
-            child.name,
-            delete_permanently=True)
-    b.save()
-    lowerdict: dict = dict()
-    for individual in individuals:
-        for key in individual.keys():
-            lowerdict[key.lower()] = individual.get(key)
-
-        b.append("notification", lowerdict)
-    b.save()
+    table_field = "notification"
+    refill_child_table_of_doc(b, doctype, table_field, individuals)
     return ""
 
 
@@ -302,6 +240,7 @@ def get_all_declinedoutgoingdeliverynotifications():
             title='Hata',
             msg=object_name + ' ÜTS\'de kayıtlı değildir.'
         )
+        return ""
     _doctype = "TR UTS Declined Outgoing Delivery Notification"
     refill_doctype_table(_doctype, notifications)
     return ""
@@ -319,6 +258,7 @@ def get_all_incomingnotificationsdeclined():
             title='Hata',
             msg=object_name + ' ÜTS\'de kayıtlı değildir.'
         )
+        return ""
     _doctype = "TR UTS Incoming Notifications Declined"
     refill_doctype_table(_doctype, notifications)
     return ""
@@ -330,14 +270,15 @@ def get_all_individualproductstobeaccepted():
     q = InquiringService()
     d: dict = q.bildirimalmabekleyenlersorgula()
 
-    notifications = d.get("SNC").get("LST")
+    notifications = d.get("SNC")
     if len(notifications) == 0:
         frappe.throw(
             title='Hata',
             msg=object_name + ' ÜTS\'de kayıtlı değildir.'
         )
+        return ""
     _doctype = "TR UTS Individual Product to be Accepted"
-    refill_doctype_table(_doctype, notifications)
+    refill_doctype_table(_doctype, notifications.get("LST"))
     return ""
 
 
@@ -351,6 +292,36 @@ def refill_doctype_table(doctype: str, entries: dict):
         # create a new document
         doc = frappe.get_doc(lowerdict)
         doc.insert()
+
+
+def clear_child_table_of_doc(doctype: str, document: Document, table_field: str):
+    for child in frappe.get_all(
+            document.get_table_field_doctype(table_field),
+            filters={
+                'parent': document.name,
+                'parentfield': table_field,
+                'parenttype': doctype
+            }):
+        frappe.delete_doc(
+            document.get_table_field_doctype(table_field),
+            child.name,
+            delete_permanently=True)
+    document.save()
+
+
+def fill_child_table_of_doc(document: Document, table_field: str, entries: dict):
+    lowerdict: dict = dict()
+    for entry in entries:
+        for key in entry.keys():
+            lowerdict[key.lower()] = entry.get(key)
+
+        document.append(table_field, lowerdict)
+    document.save()
+
+
+def refill_child_table_of_doc(document: Document, doctype: str, table_field: str, entries: dict, ):
+    clear_child_table_of_doc(doctype, document, table_field)
+    fill_child_table_of_doc(document, table_field, entries)
 
 
 def get_barcode_of_item(name):
