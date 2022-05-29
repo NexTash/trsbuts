@@ -101,11 +101,13 @@
    "label": "Ger\u00e7ek \u0130\u015flem Tarihi"
   },
   {
+   "description": "D\u0131\u015f barkodla yap\u0131lan bildirimlerde d\u0131\u015f barkoda ba\u011fl\u0131 olan alt barkoda ait \u00fcr\u00fcn numaras\u0131/barkod numaras\u0131d\u0131r.",
    "fieldname": "aun",
    "fieldtype": "Data",
    "label": "Alt \u00dcr\u00fcn Numaras\u0131"
   },
   {
+   "description": "D\u0131\u015f barkodla yap\u0131lan bildirimlerde d\u0131\u015f barkodun i\u00e7eri\u011findeki \u00fcr\u00fcn say\u0131s\u0131 ile hesaplanan adet miktar\u0131d\u0131r.",
    "fieldname": "aua",
    "fieldtype": "Int",
    "label": "Alt \u00dcr\u00fcn Adedi"
@@ -113,7 +115,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-05-22 18:14:42.145617",
+ "modified": "2022-05-29 13:40:35.339547",
  "modified_by": "Administrator",
  "module": "Trsbuts",
  "name": "TR UTS Individual Product to be Accepted",

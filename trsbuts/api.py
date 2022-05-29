@@ -324,6 +324,23 @@ def get_all_incomingnotificationsdeclined():
     return ""
 
 
+@frappe.whitelist()
+def get_all_individualproductstobeaccepted():
+    object_name = "Kabul Edilecek Tekil Ürün"
+    q = InquiringService()
+    d: dict = q.bildirimalmabekleyenlersorgula()
+
+    notifications = d.get("SNC")
+    if len(notifications) == 0:
+        frappe.throw(
+            title='Hata',
+            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        )
+    _doctype = "TR UTS Individual Product to be Accepted"
+    refill_doctype_table(_doctype, notifications)
+    return ""
+
+
 def refill_doctype_table(doctype: str, entries: dict):
     for n in frappe.get_list(doctype):
         frappe.delete_doc_if_exists(doctype=doctype, name=n.get('name'))

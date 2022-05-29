@@ -11,6 +11,12 @@
    "action_type": "Server Action",
    "group": "\u00dcTS",
    "label": "Al\u0131nmak \u0130stenmeyen Verme Bildirimlerim"
+  },
+  {
+   "action": "trsbuts.api.get_all_individualproductstobeaccepted",
+   "action_type": "Server Action",
+   "group": "\u00dcTS",
+   "label": "Kabul Edilecek Tekil \u00dcr\u00fcn Sorgula"
   }
  ],
  "autoname": "field:company_name",
@@ -100,7 +106,7 @@
   }
  ],
  "links": [],
- "modified": "2022-05-24 12:22:53.677203",
+ "modified": "2022-05-29 13:41:43.852857",
  "modified_by": "Administrator",
  "module": "Trsbuts",
  "name": "TR UTS Company Settings",
