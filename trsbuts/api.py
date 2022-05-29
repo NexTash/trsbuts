@@ -96,6 +96,40 @@ def create_importnotification_via_purchasereceipt(name):
 
 
 @frappe.whitelist()
+def refresh_all_items():
+    _doctype = "Item"
+    for item in frappe.get_all(
+            _doctype,
+            filters={
+                'disabled': 0,
+                'is_stock_item': 1,
+                'has_batch_no': 1,
+                'has_serial_no': 0
+            },
+            fields={
+                "name"
+            }):
+        i: Document = frappe.get_doc(_doctype, item.get("name"))
+        for barcode in frappe.get_all(
+                i.get_table_field_doctype("barcodes"),
+                filters={
+                    'parent': i.name,
+                    'parentfield': 'barcodes',
+                    'parenttype': _doctype,
+                    'barcode_type': 'EAN'
+                },
+                fields={
+                    "barcode",
+                    "vendor_batch"
+                }):
+            if get_urun_by_uno(barcode.get("barcode")):
+                get_tekilurun_by_batch(barcode.get("barcode"), barcode.get("vendor_batch"))
+                get_bildirim_by_batch((barcode.get("barcode"), barcode.get("vendor_batch")))
+                get_askidakitekilurun_by_batch(barcode.get("barcode"), barcode.get("vendor_batch"))
+                get_sistemdisitekilurun_by_batch(barcode.get("barcode"), barcode.get("vendor_batch"))
+
+
+@frappe.whitelist()
 def get_utsid_by_taxid(vrg):
     object_name = "Vergi No"
     q = QueryCompanyService()
@@ -136,7 +170,7 @@ def get_urun_by_uno(urun_numarasi):
 def get_tekilurun_by_batch(batch, vendor_batch):
     object_name = "Tekil Ürün"
     _doctype = "Batch"
-    b = frappe.get_doc(_doctype, batch)
+    b: Document = frappe.get_doc(_doctype, batch)
     q = InquiringService()
     if b.vendor_batch == "":
         b.vendor_batch = vendor_batch
@@ -152,7 +186,13 @@ def get_tekilurun_by_batch(batch, vendor_batch):
     if len(individual) == 0:
         return ""
     table_field = "individual_product"
-    refill_child_table_of_doc(b, _doctype, table_field, individual)
+    clear_child_table_of_doc(_doctype, b, table_field)
+    lowerdict: dict = dict()
+    for key in individual.keys():
+        lowerdict[key.lower()] = individual.get(key)
+
+    b.append("individual_product", lowerdict)
+    b.save()
     return ""
 
 
@@ -208,7 +248,7 @@ def get_askidakitekilurun_by_batch(batch, vendor_batch):
 def get_bildirim_by_batch(batch, vendor_batch):
     object_name = "Bildirim"
     _doctype = "Batch"
-    b = frappe.get_doc(_doctype, batch)
+    b: Document = frappe.get_doc(_doctype, batch)
     q = InquiringService()
     if b.vendor_batch == "":
         b.vendor_batch = vendor_batch
