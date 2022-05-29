@@ -133,7 +133,7 @@ def refresh_all_items():
                             "vendor_batch"
                         }):
                     get_tekilurun_by_batch(batch.get("name"), batch.get("vendor_batch"))
-                    get_bildirim_by_batch((batch.get("name"), batch.get("vendor_batch")))
+                    get_bildirim_by_batch(batch.get("name"), batch.get("vendor_batch"))
                     get_askidakitekilurun_by_batch(batch.get("name"), batch.get("vendor_batch"))
                     get_sistemdisitekilurun_by_batch(batch.get("name"), batch.get("vendor_batch"))
 
