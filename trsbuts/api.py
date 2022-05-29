@@ -125,7 +125,8 @@ def refresh_all_items():
                 for batch in frappe.get_all(
                         "Batch",
                         filters={
-                            'item': i.name
+                            'item': i.name,
+                            'vendor_batch': ["not in", None]
                         },
                         fields={
                             "name",
