@@ -188,10 +188,11 @@ def get_tekilurun_by_batch(batch, vendor_batch):
     try:
         individual = d.get("SNC")[0]
     except IndexError:
-        frappe.throw(
-            title='Hata',
-            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
-        )
+        # frappe.throw(
+        #     title='Hata',
+        #     msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        # )
+        return ""
     if len(individual) == 0:
         return ""
     table_field = "individual_product"
@@ -218,10 +219,11 @@ def get_sistemdisitekilurun_by_batch(batch, vendor_batch):
     try:
         individuals = d.get("SNC")
     except IndexError:
-        frappe.throw(
-            title='Hata',
-            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
-        )
+        # frappe.throw(
+        #     title='Hata',
+        #     msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        # )
+        return ""
     if len(individuals) == 0:
         return ""
     table_field = "individual_product_out_of_the_system"
@@ -242,10 +244,11 @@ def get_askidakitekilurun_by_batch(batch, vendor_batch):
     try:
         individuals = d.get("SNC")
     except IndexError:
-        frappe.throw(
-            title='Hata',
-            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
-        )
+        # frappe.throw(
+        #     title='Hata',
+        #     msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        # )
+        return ""
     if len(individuals) == 0:
         return ""
     table_field = "pending_individual_product"
@@ -266,10 +269,11 @@ def get_bildirim_by_batch(batch, vendor_batch):
     try:
         individuals = d.get("SNC")
     except IndexError:
-        frappe.throw(
-            title='Hata',
-            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
-        )
+        # frappe.throw(
+        #     title='Hata',
+        #     msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        # )
+        return ""
     if len(individuals) == 0:
         return ""
     table_field = "notification"
@@ -285,10 +289,10 @@ def get_all_declinedoutgoingdeliverynotifications():
 
     notifications = d.get("SNC").get("LST")
     if len(notifications) == 0:
-        frappe.throw(
-            title='Hata',
-            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
-        )
+        # frappe.throw(
+        #     title='Hata',
+        #     msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        # )
         return ""
     _doctype = "TR UTS Declined Outgoing Delivery Notification"
     refill_doctype_table(_doctype, notifications)
@@ -303,10 +307,10 @@ def get_all_incomingnotificationsdeclined():
 
     notifications = d.get("SNC").get("LST")
     if len(notifications) == 0:
-        frappe.throw(
-            title='Hata',
-            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
-        )
+        # frappe.throw(
+        #     title='Hata',
+        #     msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        # )
         return ""
     _doctype = "TR UTS Incoming Notifications Declined"
     refill_doctype_table(_doctype, notifications)
@@ -321,10 +325,10 @@ def get_all_individualproductstobeaccepted():
 
     notifications = d.get("SNC")
     if len(notifications) == 0:
-        frappe.throw(
-            title='Hata',
-            msg=object_name + ' ÜTS\'de kayıtlı değildir.'
-        )
+        # frappe.throw(
+        #     title='Hata',
+        #     msg=object_name + ' ÜTS\'de kayıtlı değildir.'
+        # )
         return ""
     _doctype = "TR UTS Individual Product to be Accepted"
     refill_doctype_table(_doctype, notifications.get("LST"))
