@@ -135,8 +135,8 @@ def get_urun_by_uno(urun_numarasi):
 @frappe.whitelist()
 def get_tekilurun_by_batch(batch, vendor_batch):
     object_name = "Tekil Ürün"
-    doctype = "Batch"
-    b = frappe.get_doc(doctype, batch)
+    _doctype = "Batch"
+    b = frappe.get_doc(_doctype, batch)
     q = InquiringService()
     if b.vendor_batch == "":
         b.vendor_batch = vendor_batch
@@ -152,15 +152,15 @@ def get_tekilurun_by_batch(batch, vendor_batch):
     if len(individual) == 0:
         return ""
     table_field = "individual_product"
-    refill_child_table_of_doc(b, doctype, table_field, individuals)
+    refill_child_table_of_doc(b, _doctype, table_field, individual)
     return ""
 
 
 @frappe.whitelist()
 def get_sistemdisitekilurun_by_batch(batch, vendor_batch):
     object_name = "Sistem Dışına Çıkan Tekil Ürün"
-    doctype = "Batch"
-    b = frappe.get_doc(doctype, batch)
+    _doctype = "Batch"
+    b = frappe.get_doc(_doctype, batch)
     q = InquiringService()
     if b.vendor_batch == "":
         b.vendor_batch = vendor_batch
@@ -176,15 +176,15 @@ def get_sistemdisitekilurun_by_batch(batch, vendor_batch):
     if len(individuals) == 0:
         return ""
     table_field = "individual_product_out_of_the_system"
-    refill_child_table_of_doc(b, doctype, table_field, individuals)
+    refill_child_table_of_doc(b, _doctype, table_field, individuals)
     return ""
 
 
 @frappe.whitelist()
 def get_askidakitekilurun_by_batch(batch, vendor_batch):
     object_name = "Askıdaki Tekil Ürün"
-    doctype = "Batch"
-    b: Document = frappe.get_doc(doctype, batch)
+    _doctype = "Batch"
+    b: Document = frappe.get_doc(_doctype, batch)
     q = InquiringService()
     if b.vendor_batch == "":
         b.vendor_batch = vendor_batch
@@ -200,15 +200,15 @@ def get_askidakitekilurun_by_batch(batch, vendor_batch):
     if len(individuals) == 0:
         return ""
     table_field = "pending_individual_product"
-    refill_child_table_of_doc(b, doctype, table_field, individuals)
+    refill_child_table_of_doc(b, _doctype, table_field, individuals)
     return ""
 
 
 @frappe.whitelist()
 def get_bildirim_by_batch(batch, vendor_batch):
     object_name = "Bildirim"
-    doctype = "Batch"
-    b = frappe.get_doc(doctype, batch)
+    _doctype = "Batch"
+    b = frappe.get_doc(_doctype, batch)
     q = InquiringService()
     if b.vendor_batch == "":
         b.vendor_batch = vendor_batch
@@ -224,7 +224,7 @@ def get_bildirim_by_batch(batch, vendor_batch):
     if len(individuals) == 0:
         return ""
     table_field = "notification"
-    refill_child_table_of_doc(b, doctype, table_field, individuals)
+    refill_child_table_of_doc(b, _doctype, table_field, individuals)
     return ""
 
 
