@@ -51,8 +51,9 @@ def create_importnotification_via_purchasereceipt(name):
         else:
             product_number = get_barcode_of_item(item.item_code)
         if get_urun_by_uno(product_number):
+            _supplier_address: Document = frappe.get_doc("Address", purchasereceipt.supplier_address)
             imported_country = frappe.get_doc("TR UTS Country Reference Code",
-                                              purchasereceipt.supplier_address.get("country")
+                                              _supplier_address.country
                                               ).get("EDI XML Reference Code")
             origin_country = frappe.get_doc("TR UTS Country Reference Code",
                                             item.country_of_origin
