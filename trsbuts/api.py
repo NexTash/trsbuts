@@ -133,9 +133,9 @@ def refresh_all_items():
                             "vendor_batch"
                         }):
                     get_tekilurun_by_batch(batch.get("name"), batch.get("vendor_batch"))
-                    get_bildirim_by_batch(batch.get("name"), batch.get("vendor_batch"))
-                    get_askidakitekilurun_by_batch(batch.get("name"), batch.get("vendor_batch"))
                     get_sistemdisitekilurun_by_batch(batch.get("name"), batch.get("vendor_batch"))
+                    get_askidakitekilurun_by_batch(batch.get("name"), batch.get("vendor_batch"))
+                    get_bildirim_by_batch(batch.get("name"), batch.get("vendor_batch"))
 
 
 @frappe.whitelist()
@@ -391,9 +391,10 @@ def get_barcode_of_item(name):
             "barcode"
         })
     if len(l) == 0:
-        frappe.throw(
-            title='Hata',
-            msg='Sisteminizde Birincil Ürün Numarası kayıtlı değildir.'
-        )
+        # frappe.throw(
+        #     title='Hata',
+        #     msg='Sisteminizde Birincil Ürün Numarası kayıtlı değildir.'
+        # )
+        return ""
     else:
         return l[0].get('barcode')
